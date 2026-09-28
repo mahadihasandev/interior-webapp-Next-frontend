@@ -20,6 +20,7 @@ import { ProductGrid } from '@/components/shop/ProductGrid';
 import { CustomFittingVisualizer } from '@/components/custom/CustomFittingVisualizer';
 import { CustomSofaVisualizer } from '@/components/custom/CustomSofaVisualizer';
 import { CustomSampleGallery, CustomSample } from '@/components/custom/CustomSampleGallery';
+import { CustomOrderShowcase } from '@/components/custom/CustomOrderShowcase';
 import { SaudiMaterialShowcase } from '@/components/custom/SaudiMaterialShowcase';
 import { useAppDispatch } from '@/store/hooks';
 import { openConsultationModal } from '@/store/slices/uiSlice';
@@ -71,7 +72,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <Link
-              href="/#custom-fitting-studio"
+              href="/#custom-designs"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1a1815] text-sm font-semibold rounded-full hover:bg-[#f3ede4] transition-colors"
             >
               Design Studio
@@ -104,6 +105,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── SELLER CUSTOM DESIGNS SHOWCASE ─────────────────────────── */}
+      <section id="custom-designs" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-4">
+        <div className="pb-1">
+          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#b8933f] mb-1">
+            Seller&apos;s Custom Designs · تصاميم مخصصة من البائع
+          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1a1815]">
+              Pick a Design — Order or Call the Seller
+            </h2>
+            <p className="text-sm text-[#7a7166] max-w-md">
+              Real installations uploaded by our seller. Select one, then customise dimensions or contact us directly.
+            </p>
+          </div>
+        </div>
+        <CustomOrderShowcase onStartOrder={handleSelectSample} />
+      </section>
+
       {/* ── SAMPLE GALLERY + STUDIO ───────────────────────────────────── */}
       <section id="custom-fitting-studio" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-10">
 
@@ -113,7 +132,7 @@ export default function HomePage() {
             Bespoke Studio · استوديو التخصيص
           </p>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1a1815]">
-            Choose a Sample, Then Customize
+            Browse All Samples &amp; Customise
           </h2>
           <p className="text-sm text-[#7a7166] mt-1 max-w-2xl">
             Select a real Saudi villa installation below to pre-load its specs into the live simulator.
