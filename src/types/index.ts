@@ -30,7 +30,9 @@ export interface Product {
   rating: number;
   reviews_count: number;
   created_at?: string;
+  custom_specs?: Record<string, unknown>;
 }
+
 
 export interface CartItem {
   product: Product;
@@ -79,6 +81,25 @@ export interface OrderCheckoutRequest {
   items: OrderItemRequest[];
 }
 
+export interface OrderItemDetail {
+  id: number;
+  product_id?: number;
+  product_name: string;
+  price?: number;
+  unit_price?: number;
+  quantity: number;
+  subtotal?: number;
+  product?: Product;
+  custom_specs?: {
+    color_finish?: string;
+    alloy_hex?: string;
+    height?: number | string;
+    width?: number | string;
+    glass_type?: string;
+    [key: string]: unknown;
+  };
+}
+
 export interface OrderResponse {
   id: number;
   order_number: string;
@@ -94,15 +115,9 @@ export interface OrderResponse {
   status: string;
   payment_method: string;
   payment_status: string;
+  title?: string;
   created_at?: string;
-  items?: Array<{
-    id: number;
-    product_id: number;
-    product_name: string;
-    price: number;
-    quantity: number;
-    subtotal: number;
-  }>;
+  items?: OrderItemDetail[];
 }
 
 export interface ApiResponse<T> {

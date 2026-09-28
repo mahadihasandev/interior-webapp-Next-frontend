@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MessageCircle, Sparkles, X, ChevronUp, Box, PhoneCall } from 'lucide-react';
+import { MessageCircle, Sparkles, X, Box } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { openConsultationModal } from '@/store/slices/uiSlice';
 

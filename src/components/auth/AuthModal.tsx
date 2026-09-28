@@ -72,8 +72,9 @@ export function AuthModal() {
       setTimeout(() => {
         handleClose();
       }, 800);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Unable to connect to authentication service.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Unable to connect to authentication service.';
+      setErrorMsg(message);
     } finally {
       setLoading(false);
     }
@@ -108,8 +109,9 @@ export function AuthModal() {
       setTimeout(() => {
         handleClose();
       }, 1000);
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Unable to complete registration.');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Unable to complete registration.';
+      setErrorMsg(message);
     } finally {
       setLoading(false);
     }

@@ -6,18 +6,15 @@ import { useSearchParams } from 'next/navigation';
 import {
   Package,
   Search,
-  CheckCircle2,
-  Clock,
   Truck,
   Printer,
   Copy,
   Check,
-  Calendar,
-  MapPin,
   Layers,
   ArrowLeft,
 } from 'lucide-react';
 import { useGetOrderQuery, useFakePayOrderMutation } from '@/store/services/consultationApi';
+import { OrderItemDetail } from '@/types';
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
@@ -212,7 +209,7 @@ function TrackOrderContent() {
                   </h3>
                   <div className="border border-stone-200 rounded-2xl divide-y divide-stone-100 overflow-hidden bg-white">
                     {order.items && order.items.length > 0 ? (
-                      order.items.map((item: any, idx: number) => (
+                      order.items.map((item: OrderItemDetail, idx: number) => (
                         <div key={idx} className="p-4 flex items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
                             <div className="w-14 h-14 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0 overflow-hidden">
@@ -224,11 +221,11 @@ function TrackOrderContent() {
                             </div>
                             <div>
                               <p className="text-xs font-bold text-stone-900">{item.product_name}</p>
-                              <p className="text-[11px] text-stone-500">Qty: {item.quantity} × ${Number(item.unit_price).toFixed(2)}</p>
+                              <p className="text-[11px] text-stone-500">Qty: {item.quantity} × ${Number(item.unit_price || item.price || 0).toFixed(2)}</p>
                             </div>
                           </div>
                           <span className="text-sm font-mono font-bold text-stone-900">
-                            ${Number(item.subtotal || item.unit_price * item.quantity).toFixed(2)}
+                            ${Number(item.subtotal || (item.unit_price || item.price || 0) * item.quantity).toFixed(2)}
                           </span>
                         </div>
                       ))
@@ -239,7 +236,7 @@ function TrackOrderContent() {
                             <Package className="w-6 h-6 text-white" />
                           </div>
                           <div>
-                            <p className="text-xs font-bold text-stone-900">{(order as any).title || 'Architectural Custom Order'}</p>
+                            <p className="text-xs font-bold text-stone-900">{order.title || 'Architectural Custom Order'}</p>
                             <p className="text-[11px] text-stone-500">Quantity: 1 Unit</p>
                           </div>
                         </div>

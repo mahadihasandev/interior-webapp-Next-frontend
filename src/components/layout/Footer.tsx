@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Compass, Phone, MapPin, Mail, ArrowRight, Shield, Truck, Star, MessageCircle } from 'lucide-react';
+import { Compass, Phone, MapPin, Mail, ArrowRight, Shield, Truck, Star } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { openConsultationModal, openTrackingModal } from '@/store/slices/uiSlice';
 
@@ -57,7 +57,7 @@ export function Footer() {
               </div>
               <div>
                 <span className="text-base font-serif font-bold tracking-tight text-white block">
-                  L'Atelier Studio
+                  L&apos;Atelier Studio
                 </span>
                 <span className="text-[10px] text-[#dfca92] tracking-widest uppercase font-bold">
                   ستوديو العمارة والتصميم
@@ -108,8 +108,8 @@ export function Footer() {
 
           {/* Studio Services */}
           <div>
-            <h4 className="text-[11px] font-bold text-stone-100 uppercase tracking-widest mb-5">
-              Bespoke Studio Services
+            <h4 className="text-[11px] font-bold text-stone-100 uppercase tracking-widest mb-5 whitespace-nowrap">
+              Bespoke Services
             </h4>
             <ul className="space-y-3 text-xs">
               {[
@@ -180,7 +180,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-14 pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-stone-600 gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-center">
-            <p>© {new Date().getFullYear()} L'Atelier Interior & Architectural Studio.</p>
+            <p>© {new Date().getFullYear()} L&apos;Atelier Interior & Architectural Studio.</p>
             <p className="text-stone-700">All rights reserved. المملكة العربية السعودية</p>
           </div>
           <div className="flex items-center gap-5">

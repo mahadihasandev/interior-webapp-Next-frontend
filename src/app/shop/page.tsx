@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useGetProductsQuery, useGetCategoriesQuery } from '@/store/services/productsApi';
 import { ProductFilters } from '@/components/shop/ProductFilters';
@@ -13,21 +13,22 @@ function ShopContent() {
   const categoryParam = searchParams.get('category');
 
   const [filters, setFilters] = useState<FilterState>({
-    category: categoryParam || undefined,
     sort: 'latest',
     page: 1,
   });
 
-  useEffect(() => {
-    if (categoryParam) {
-      setFilters((prev) => ({ ...prev, category: categoryParam, page: 1 }));
-    }
-  }, [categoryParam]);
+  const activeFilters = useMemo<FilterState>(() => {
+    return {
+      ...filters,
+      category: filters.category !== undefined ? filters.category : (categoryParam || undefined),
+    };
+  }, [filters, categoryParam]);
 
   const { data: categories = [] } = useGetCategoriesQuery();
-  const { data: productsData, isLoading } = useGetProductsQuery(filters);
+  const { data: productsData, isLoading } = useGetProductsQuery(activeFilters);
 
-  const activeCategoryName = categories.find((c) => c.slug === filters.category)?.name;
+  const activeCategoryName = categories.find((c) => c.slug === activeFilters.category)?.name;
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
@@ -49,9 +50,10 @@ function ShopContent() {
       {/* Filter Toolbar */}
       <ProductFilters
         categories={categories}
-        filters={filters}
+        filters={activeFilters}
         onChange={(newFilters) => setFilters(newFilters)}
       />
+
 
       {/* Product Grid */}
       <ProductGrid

@@ -3,18 +3,14 @@
 import React, { useState, useMemo } from 'react';
 import {
   Armchair,
-  Check,
   ArrowRight,
   ShieldCheck,
-  Sparkles,
-  Layers,
-  Ruler,
-  Info,
   CreditCard,
 } from 'lucide-react';
 
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart, setDrawerOpen } from '@/store/slices/cartSlice';
+import { Product } from '@/types';
 
 interface SofaColor {
   id: string;
@@ -112,32 +108,44 @@ export function CustomSofaVisualizer() {
   }, [selectedLayout, selectedFabric, seatDepth, cushionCore]);
 
   const handleOrderSofa = () => {
+    const customProduct: Product = {
+      id: 9991,
+      category_id: 1,
+      name: `Custom ${selectedLayout.name} (${selectedFabric.name})`,
+      slug: `custom-sofa-${selectedLayout.id}`,
+      description: `Bespoke ${selectedLayout.name} upholstered in ${selectedFabric.name} (${selectedFabric.material}).`,
+      price: calculation.finalTotal,
+      image_url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80',
+      stock: 10,
+      in_stock: true,
+      gallery: [],
+      is_featured: false,
+      rating: 5.0,
+      reviews_count: 1,
+      category: { id: 1, name: 'Custom Sofa Studio', slug: 'living-room' },
+      custom_specs: {
+        layout: selectedLayout.name,
+        fabric: selectedFabric.name,
+        fabric_material: selectedFabric.material,
+        fabric_hex: selectedFabric.hex,
+        legs: selectedLegs.name,
+        depth: seatDepth === 'deep_lounge' ? '42" Deep Lounge' : '36" Standard',
+        cushion: cushionCore === 'down_blend' ? 'Down-Feather Blend' : cushionCore === 'cloud_plush' ? 'Cloud Resilience Foam' : 'Ergonomic High Density',
+        width_inches: selectedLayout.widthInches,
+        is_custom_sofa: true,
+        advance_required: calculation.advanceRequired,
+      },
+    };
+
     dispatch(
       addToCart({
-        product: {
-          id: 9991,
-          name: `Custom ${selectedLayout.name} (${selectedFabric.name})`,
-          price: calculation.finalTotal,
-          image_url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1000&q=80',
-          category: { id: 1, name: 'Custom Sofa Studio', slug: 'living-room' },
-          custom_specs: {
-            layout: selectedLayout.name,
-            fabric: selectedFabric.name,
-            fabric_material: selectedFabric.material,
-            fabric_hex: selectedFabric.hex,
-            legs: selectedLegs.name,
-            depth: seatDepth === 'deep_lounge' ? '42" Deep Lounge' : '36" Standard',
-            cushion: cushionCore === 'down_blend' ? 'Down-Feather Blend' : cushionCore === 'cloud_plush' ? 'Cloud Resilience Foam' : 'Ergonomic High Density',
-            width_inches: selectedLayout.widthInches,
-            is_custom_sofa: true,
-            advance_required: calculation.advanceRequired,
-          } as any,
-        } as any,
+        product: customProduct,
         quantity: 1,
       })
     );
     dispatch(setDrawerOpen(true));
   };
+
 
   const isDarkFabric = ['#222222', '#1C3E30', '#192841', '#34312F'].includes(selectedFabric.hex);
 
@@ -511,7 +519,7 @@ export function CustomSofaVisualizer() {
               </label>
               <select
                 value={seatDepth}
-                onChange={(e) => setSeatDepth(e.target.value as any)}
+                onChange={(e) => setSeatDepth(e.target.value as 'standard' | 'deep_lounge')}
                 className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:border-stone-900"
               >
                 <option value="standard">36&quot; Standard Depth</option>
@@ -525,7 +533,7 @@ export function CustomSofaVisualizer() {
               </label>
               <select
                 value={cushionCore}
-                onChange={(e) => setCushionCore(e.target.value as any)}
+                onChange={(e) => setCushionCore(e.target.value as 'cloud_plush' | 'down_blend' | 'firm_foam')}
                 className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:border-stone-900"
               >
                 <option value="down_blend">Down Feather Blend (+ $180)</option>
@@ -573,8 +581,9 @@ export function CustomSofaVisualizer() {
             <div className="p-3 bg-white rounded-xl border border-stone-200 text-[11px] space-y-1.5">
               <div className="flex items-center gap-1.5 text-stone-800 font-semibold">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Saudi Hospitality Specification (42" Deep Lounge Seating & Stain Resistance)</span>
+                <span>Saudi Hospitality Specification (42&quot; Deep Lounge Seating &amp; Stain Resistance)</span>
               </div>
+
               <div className="text-[10px] text-stone-500">
                 White-glove in-room assembly and packaging removal across Riyadh, Jeddah, Khobar, Dammam, and Neom.
               </div>

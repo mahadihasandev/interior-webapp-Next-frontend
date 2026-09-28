@@ -3,14 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import {
   Sparkles,
-  Layers,
   ShieldCheck,
-  Maximize2,
   Check,
   ArrowRight,
-  Info,
   CreditCard,
-  Palette,
 } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart, setDrawerOpen } from '@/store/slices/cartSlice';
@@ -130,15 +126,11 @@ export function CustomFittingVisualizer() {
     thermal_barrier: false,
   });
 
-  const toggleAddon = (key: string) => {
-    setAddons((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
   // Live Price Calculation
   const calculation = useMemo(() => {
     const sqft = (heightInches * widthInches) / 144;
     const baseRate = gauge === '2.5mm' ? 48 : gauge === '2.0mm' ? 38 : 32;
-    let materialCost = sqft * baseRate * selectedFinish.multiplier;
+    const materialCost = sqft * baseRate * selectedFinish.multiplier;
 
     let addonTotal = selectedGlass.surcharge;
     if (addons.acoustic_seal) addonTotal += 160;
@@ -261,6 +253,9 @@ export function CustomFittingVisualizer() {
         <div className="pt-2 border-t border-stone-200/80">
           <div className="flex items-center gap-1.5 text-xs text-stone-600 font-bold mb-2">
             <span>⚡ Quick-Load Saudi Villa Presets (نماذج الفلل السعودية السريعة):</span>
+            <span className="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+              {activePresetTitle}
+            </span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
@@ -309,7 +304,7 @@ export function CustomFittingVisualizer() {
               <span className="text-xs font-bold text-stone-900">{selectedFinish.name}</span>
             </div>
             <span className="text-[11px] font-mono text-stone-600 font-semibold">
-              {heightInches}" × {widthInches}"
+              {heightInches}&quot; × {widthInches}&quot;
             </span>
           </div>
 
@@ -589,7 +584,7 @@ export function CustomFittingVisualizer() {
                 </span>
                 <select
                   value={gauge}
-                  onChange={(e) => setGauge(e.target.value as any)}
+                  onChange={(e) => setGauge(e.target.value as '1.5mm' | '2.0mm' | '2.5mm')}
                   className="w-full px-2.5 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:border-stone-900"
                 >
                   <option value="1.5mm">1.5mm Standard</option>

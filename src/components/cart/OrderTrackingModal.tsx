@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   X,
   Package,
@@ -16,6 +16,7 @@ import {
 import { useGetOrderQuery, useFakePayOrderMutation } from '@/store/services/consultationApi';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { closeTrackingModal } from '@/store/slices/uiSlice';
+import { OrderItemDetail } from '@/types';
 
 interface OrderTrackingModalProps {
   initialOrderNumber?: string | null;
@@ -38,15 +39,14 @@ export function OrderTrackingModal({
 
   const [searchInput, setSearchInput] = useState(initialRef);
   const [activeOrderNumber, setActiveOrderNumber] = useState(initialRef);
+  const [prevRef, setPrevRef] = useState(initialRef);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    if (initialOrderNumber || reduxOrderNum) {
-      const ref = initialOrderNumber || reduxOrderNum || 'INT-91K7A4';
-      setSearchInput(ref);
-      setActiveOrderNumber(ref);
-    }
-  }, [initialOrderNumber, reduxOrderNum]);
+  if (initialRef !== prevRef) {
+    setPrevRef(initialRef);
+    setSearchInput(initialRef);
+    setActiveOrderNumber(initialRef);
+  }
 
   // RTK Query hooks
   const { data, isLoading, isError, refetch } = useGetOrderQuery(activeOrderNumber, {
@@ -233,7 +233,7 @@ export function OrderTrackingModal({
                   <div className="flex items-center gap-3 text-xs text-stone-600 mt-1">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-stone-500" />
-                      <span>{new Date(order.created_at || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                      <span>{order.created_at ? new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Confirmed'}</span>
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
@@ -288,7 +288,7 @@ export function OrderTrackingModal({
 
                 <div className="bg-white border border-stone-200 rounded-2xl divide-y divide-stone-100 overflow-hidden">
                   {order.items && order.items.length > 0 ? (
-                    order.items.map((item: any, idx: number) => {
+                    order.items.map((item: OrderItemDetail, idx: number) => {
                       const isCustom = item.product_name?.toLowerCase().includes('custom') || item.custom_specs;
                       return (
                         <div key={idx} className="p-4 flex items-center gap-4 hover:bg-stone-50/50 transition-colors">
@@ -330,7 +330,7 @@ export function OrderTrackingModal({
                                 )}
                                 {item.custom_specs.height && (
                                   <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-stone-100 text-stone-700">
-                                    {item.custom_specs.height}"H x {item.custom_specs.width}"W
+                                    {String(item.custom_specs.height)}&quot;H x {String(item.custom_specs.width)}&quot;W
                                   </span>
                                 )}
                                 {item.custom_specs.glass_type && (
@@ -342,13 +342,13 @@ export function OrderTrackingModal({
                             )}
 
                             <p className="text-[11px] text-stone-500 mt-1">
-                              Qty: <span className="font-bold text-stone-800">{item.quantity}</span> × ${Number(item.unit_price).toFixed(2)}
+                              Qty: <span className="font-bold text-stone-800">{item.quantity}</span> × ${Number(item.unit_price || item.price || 0).toFixed(2)}
                             </p>
                           </div>
 
                           <div className="text-right shrink-0">
                             <span className="text-sm font-bold text-stone-900 font-mono">
-                              ${Number(item.subtotal || item.unit_price * item.quantity).toFixed(2)}
+                              ${Number(item.subtotal || (item.unit_price || item.price || 0) * item.quantity).toFixed(2)}
                             </span>
                           </div>
                         </div>
@@ -362,7 +362,7 @@ export function OrderTrackingModal({
                       </div>
                       <div className="flex-1">
                         <h5 className="text-xs font-bold text-stone-900">
-                          {(order as any).title || 'Architectural Custom Order'}
+                          {order.title || 'Architectural Custom Order'}
                         </h5>
                         <p className="text-[11px] text-stone-600 mt-0.5">
                           Extruded 6063-T6 alloy architectural fitting with tempered glass and soft-close pivots

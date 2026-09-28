@@ -4,6 +4,24 @@ These guidelines are mandatory for all AI agents and developers contributing to 
 
 ---
 
+## ⚠️ CRITICAL ZERO-TOLERANCE POLICY: NEVER PUSH TO GITHUB WITH ERRORS
+
+1. **NEVER push to GitHub with errors under any circumstance.**
+   - Do **NOT** push code to GitHub that contains TypeScript compiler errors, ESLint errors, Next.js build errors, or broken imports/dependencies.
+   - Every commit and push to remote branches (`main`, `master`, staging) must be verified and 100% error-free.
+2. **Mandatory Pre-Push Verification Checklist**:
+   - **ESLint Validation**: Execute `npm run lint` and confirm **0 errors** across all files.
+   - **TypeScript Typecheck**: Execute `npx tsc --noEmit` and confirm **0 type errors**.
+   - **Production Build Test**: Run `npm run build` to verify Next.js compiles, prerenders, and packages the app cleanly.
+   - **Code Standards**:
+     - Zero unescaped JSX entities (always escape `'` as `&apos;` and `"` as `&quot;`).
+     - Zero unhandled `any` types (use precise domain types from `src/types/index.ts`).
+     - Zero invalid React hook dependency patterns or `setState` inside render effects.
+     - Clean imports with zero unused variables or dead imports causing lint failures.
+   - **Resolution Mandate**: If ANY error occurs during linting, typechecking, or building, **you MUST resolve all errors first before running `git push`**. Pushing code with errors is strictly forbidden.
+
+---
+
 ## 1. Core Principles: Reusability & DRY (Don't Repeat Yourself)
 
 1. **Always Build Reusable Components**:
