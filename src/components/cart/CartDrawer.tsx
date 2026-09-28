@@ -18,6 +18,8 @@ export function CartDrawer() {
   const { items, isDrawerOpen } = useAppSelector((state) => state.cart);
   const [createOrder, { isLoading: isCheckingOut }] = useCreateOrderMutation();
 
+  const currency = useAppSelector((state) => state.ui.currency);
+
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'checkout' | 'payment' | 'success'>('cart');
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [paymentDetails, setPaymentDetails] = useState<PaymentSuccessDetails | null>(null);
@@ -29,7 +31,7 @@ export function CartDrawer() {
     email: '',
     phone: '',
     address: '',
-    city: '',
+    city: 'Riyadh · الرياض',
     postalCode: '',
     notes: '',
   });
@@ -41,7 +43,15 @@ export function CartDrawer() {
   const shippingFee = subtotal > 500 || subtotal === 0 ? 0 : 25;
   const total = subtotal + shippingFee;
 
+  const formatPrice = (usd: number) => {
+    if (currency === 'SAR') {
+      return `${Math.round(usd * 3.75).toLocaleString()} SAR`;
+    }
+    return `$${usd.toFixed(2)}`;
+  };
+
   if (!isDrawerOpen) return null;
+
 
   const handleDeliverySubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -177,9 +187,10 @@ export function CartDrawer() {
                             <p className="text-[11px] text-stone-500">{product.color || 'Standard'}</p>
                           </div>
                           <div className="flex items-center justify-between mt-2">
-                            <span className="text-sm font-bold text-stone-900">
-                              ${(product.price * quantity).toFixed(2)}
+                            <span className="text-sm font-bold text-stone-900 font-mono">
+                              {formatPrice(product.price * quantity)}
                             </span>
+
                             <div className="flex items-center border border-stone-300 rounded-lg overflow-hidden bg-white">
                               <button
                                 onClick={() =>
@@ -430,47 +441,50 @@ export function CartDrawer() {
               <div className="space-y-1.5 text-xs text-stone-600">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="text-stone-900 font-semibold">${subtotal.toFixed(2)}</span>
+                  <span className="text-stone-900 font-semibold font-mono">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>White-Glove Shipping</span>
                   <span className="text-stone-900 font-semibold">
-                    {shippingFee === 0 ? 'Complimentary' : `$${shippingFee.toFixed(2)}`}
+                    {shippingFee === 0 ? 'Complimentary (مجاني)' : formatPrice(shippingFee)}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm font-bold text-stone-900 pt-2 border-t border-stone-200">
-                  <span>Total Due</span>
-                  <span>${total.toFixed(2)}</span>
+                <div className="flex justify-between items-baseline text-sm font-bold text-stone-900 pt-2 border-t border-stone-200">
+                  <span>Total Due / الإجمالي</span>
+                  <span className="font-mono text-base font-bold text-[#163b2f]">
+                    {formatPrice(total)}
+                  </span>
                 </div>
               </div>
 
               {checkoutStep === 'cart' ? (
                 <button
                   onClick={() => setCheckoutStep('checkout')}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 text-xs font-bold uppercase tracking-widest text-white bg-stone-900 hover:bg-stone-800 rounded-xl transition-colors shadow-md"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 text-xs font-bold uppercase tracking-widest text-white bg-[#163b2f] hover:bg-[#1f4e3f] border border-[#c5a059]/40 rounded-xl transition-all shadow-md cursor-pointer"
                 >
                   <span>Proceed to Delivery Info</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-[#dfca92]" />
                 </button>
               ) : (
                 <div className="flex gap-3">
                   <button
                     type="button"
                     onClick={() => setCheckoutStep('cart')}
-                    className="w-1/3 py-2.5 text-xs font-semibold uppercase tracking-wider text-stone-700 hover:text-stone-900 border border-stone-300 rounded-xl transition-colors bg-white"
+                    className="w-1/3 py-2.5 text-xs font-semibold uppercase tracking-wider text-stone-700 hover:text-stone-900 border border-stone-300 rounded-xl transition-colors bg-white cursor-pointer"
                   >
                     Back to Bag
                   </button>
                   <button
                     type="submit"
                     form="checkout-form"
-                    className="w-2/3 flex items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-widest text-white bg-stone-900 hover:bg-stone-800 rounded-xl transition-colors shadow-md"
+                    className="w-2/3 flex items-center justify-center gap-2 py-2.5 text-xs font-bold uppercase tracking-widest text-white bg-[#163b2f] hover:bg-[#1f4e3f] border border-[#c5a059]/40 rounded-xl transition-all shadow-md cursor-pointer"
                   >
                     <span>Proceed to Demo Payment</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-[#dfca92]" />
                   </button>
                 </div>
               )}
+
             </div>
           )}
         </div>

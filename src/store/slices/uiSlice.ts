@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type Currency = 'SAR' | 'USD';
+
 interface UiState {
+  currency: Currency;
   isConsultationModalOpen: boolean;
   selectedRoomType?: string;
   mobileMenuOpen: boolean;
@@ -9,6 +12,7 @@ interface UiState {
 }
 
 const initialState: UiState = {
+  currency: 'SAR',
   isConsultationModalOpen: false,
   selectedRoomType: undefined,
   mobileMenuOpen: false,
@@ -20,6 +24,12 @@ export const uiSlice = createSlice({
   name: 'ui',
   initialState,
   reducers: {
+    setCurrency: (state, action: PayloadAction<Currency>) => {
+      state.currency = action.payload;
+    },
+    toggleCurrency: (state) => {
+      state.currency = state.currency === 'SAR' ? 'USD' : 'SAR';
+    },
     openConsultationModal: (state, action: PayloadAction<string | undefined>) => {
       state.isConsultationModalOpen = true;
       state.selectedRoomType = action.payload;
@@ -46,6 +56,8 @@ export const uiSlice = createSlice({
 });
 
 export const {
+  setCurrency,
+  toggleCurrency,
   openConsultationModal,
   closeConsultationModal,
   toggleMobileMenu,
@@ -55,3 +67,4 @@ export const {
 } = uiSlice.actions;
 
 export default uiSlice.reducer;
+

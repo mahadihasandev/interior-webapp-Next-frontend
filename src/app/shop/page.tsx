@@ -33,17 +33,18 @@ function ShopContent() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
       {/* Header */}
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-stone-900">
-          <Sparkles className="w-3.5 h-3.5 text-stone-900" />
-          <span>Curated Architectural Catalogue</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#f5f0e6] border border-[#c5a059]/40 text-[#8f7033] text-xs font-bold uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-[#8f7033]" />
+          <span>Curated Architectural Catalogue · المعرض والكتالوج المعماري</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight">
-          {activeCategoryName ? `${activeCategoryName} Collection` : 'All Interior Works & Furniture'}
+          {activeCategoryName ? `${activeCategoryName} Collection` : 'All Interior Works & Architectural Furnishings'}
         </h1>
-        <p className="text-sm sm:text-base text-stone-800 font-normal max-w-xl leading-relaxed">
-          Browse our handcrafted furniture pieces, architectural fittings, and refined living appointments.
+        <p className="text-sm sm:text-base text-stone-700 font-normal max-w-xl leading-relaxed">
+          Handcrafted furniture pieces, architectural fittings, and luxury appointments tailored for modern living spaces across Saudi Arabia.
         </p>
       </div>
+
 
       {/* Filter Toolbar */}
       <ProductFilters

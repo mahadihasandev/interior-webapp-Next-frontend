@@ -10,7 +10,9 @@ import {
   Layers,
   Ruler,
   Info,
+  CreditCard,
 } from 'lucide-react';
+
 import { useAppDispatch } from '@/store/hooks';
 import { addToCart, setDrawerOpen } from '@/store/slices/cartSlice';
 
@@ -580,10 +582,11 @@ export function CustomSofaVisualizer() {
 
             <button
               onClick={handleOrderSofa}
-              className="w-full py-3.5 px-6 bg-stone-900 hover:bg-stone-800 active:bg-black text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full py-4 px-6 bg-[#163b2f] hover:bg-[#1f4e3f] active:bg-[#0e271f] text-white text-xs font-bold uppercase tracking-widest rounded-xl shadow-md border border-[#c5a059]/40 flex items-center justify-center gap-2 transition-all cursor-pointer group"
             >
-              <span>Add Custom Majlis Sofa (40% Deposit: {sarAdvance.toLocaleString()} SAR)</span>
-              <ArrowRight className="w-4 h-4 text-white" />
+              <CreditCard className="w-4 h-4 text-[#dfca92] group-hover:scale-110 transition-transform" />
+              <span>Add Custom Majlis Sofa (40% Deposit: {sarAdvance.toLocaleString()} SAR) · بدء التصنيع</span>
+              <ArrowRight className="w-4 h-4 text-[#dfca92]" />
             </button>
           </div>
         </div>
@@ -591,3 +594,4 @@ export function CustomSofaVisualizer() {
     </div>
   );
 }
+

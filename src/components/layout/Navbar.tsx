@@ -16,8 +16,9 @@ import {
 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { toggleDrawer } from '@/store/slices/cartSlice';
-import { openConsultationModal, toggleMobileMenu, openTrackingModal } from '@/store/slices/uiSlice';
+import { openConsultationModal, toggleMobileMenu, openTrackingModal, toggleCurrency } from '@/store/slices/uiSlice';
 import { openAuthModal, logout } from '@/store/slices/authSlice';
+
 
 export function Navbar() {
   const pathname = usePathname();
@@ -25,6 +26,7 @@ export function Navbar() {
   const cartItems = useAppSelector((state) => state.cart.items);
   const mobileMenuOpen = useAppSelector((state) => state.ui.mobileMenuOpen);
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+  const currency = useAppSelector((state) => state.ui.currency);
 
   const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false);
 
@@ -46,30 +48,31 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-stone-200 text-stone-900 transition-all duration-300">
+    <header className="sticky top-0 z-40 w-full bg-[#faf8f5]/95 backdrop-blur-md border-b border-[#c5a059]/20 text-stone-900 transition-all duration-300 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
-          {/* 1. Brand Logo */}
+          {/* 1. Brand Logo with Bilingual Saudi Signature */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="w-10 h-10 rounded-xl bg-stone-900 border border-stone-800 flex items-center justify-center text-white group-hover:scale-105 transition-transform shadow-xs">
-              <Compass className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-[#0c0a09] border border-[#c5a059]/40 flex items-center justify-center text-white group-hover:scale-105 transition-transform shadow-xs relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c5a059]/25 to-transparent pointer-events-none" />
+              <Compass className="w-5 h-5 text-[#dfca92]" />
             </div>
             <div>
-              <span className="text-xl font-serif tracking-tight font-bold uppercase text-stone-900 group-hover:text-stone-700 transition-colors">
+              <span className="text-xl font-serif tracking-tight font-bold uppercase text-stone-900 group-hover:text-stone-700 transition-colors block leading-tight">
                 L’Atelier
               </span>
-              <span className="block text-[10px] tracking-[0.25em] text-stone-500 font-sans uppercase font-bold">
-                Interior & Living
+              <span className="block text-[9.5px] tracking-[0.22em] text-[#8f7033] font-sans font-bold">
+                الرياض · جدة · الخبر
               </span>
             </div>
           </Link>
 
-          {/* 2. Desktop Nav Links (Clean, Uncrowded) */}
+          {/* 2. Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             <Link
               href="/"
               className={`text-sm tracking-wide transition-colors ${
-                pathname === '/' ? 'text-stone-900 font-bold border-b-2 border-stone-900 pb-0.5' : 'text-stone-700 hover:text-stone-900 font-medium'
+                pathname === '/' ? 'text-stone-950 font-bold border-b-2 border-[#163b2f] pb-0.5' : 'text-stone-700 hover:text-stone-950 font-medium'
               }`}
             >
               Home
@@ -83,8 +86,8 @@ export function Navbar() {
                   href={link.href}
                   className={`text-sm tracking-wide transition-colors ${
                     isActive
-                      ? 'text-stone-900 font-bold border-b-2 border-stone-900 pb-0.5'
-                      : 'text-stone-700 hover:text-stone-900 font-medium'
+                      ? 'text-stone-950 font-bold border-b-2 border-[#163b2f] pb-0.5'
+                      : 'text-stone-700 hover:text-stone-950 font-medium'
                   }`}
                 >
                   {link.name}
@@ -114,7 +117,7 @@ export function Navbar() {
                         key={cat.name}
                         href={cat.href}
                         onClick={() => setCategoriesDropdownOpen(false)}
-                        className="block px-3 py-2 text-xs font-semibold text-stone-800 hover:text-stone-950 hover:bg-stone-100 rounded-xl transition-colors"
+                        className="block px-3 py-2 text-xs font-semibold text-stone-800 hover:text-stone-950 hover:bg-[#faf8f5] rounded-xl transition-colors"
                       >
                         {cat.name}
                       </Link>
@@ -125,12 +128,23 @@ export function Navbar() {
             </div>
           </nav>
 
-          {/* 3. Action CTAs (Uncrowded, Elegant Spacing) */}
+          {/* 3. Action CTAs */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Track Order Trigger (Sleek pill on md+) */}
+            {/* Interactive Currency Switcher */}
+            <button
+              onClick={() => dispatch(toggleCurrency())}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold border border-[#c5a059]/40 bg-[#f5f0e6] hover:bg-[#ebe4d5] text-stone-900 transition-all cursor-pointer shadow-2xs"
+              title="Click to toggle SAR / USD"
+            >
+              <span className="font-mono text-[11px]">
+                {currency === 'SAR' ? '🇸🇦 SAR (ر.س)' : '🌐 USD ($)'}
+              </span>
+            </button>
+
+            {/* Track Order Trigger */}
             <button
               onClick={() => dispatch(openTrackingModal(undefined))}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-stone-700 hover:text-stone-900 hover:bg-stone-100 border border-stone-200 rounded-full transition-colors cursor-pointer"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-stone-700 hover:text-stone-900 hover:bg-[#f5f0e6] border border-stone-300 rounded-full transition-colors cursor-pointer"
               title="Track Existing Order"
             >
               <Package className="w-3.5 h-3.5 text-stone-600" />
@@ -140,8 +154,8 @@ export function Navbar() {
             {/* Customer Authentication */}
             {isAuthenticated && user ? (
               <div className="hidden sm:flex items-center gap-1.5">
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-stone-100 border border-stone-300 rounded-full text-xs font-bold text-stone-900">
-                  <div className="w-5 h-5 rounded-full bg-stone-900 text-white flex items-center justify-center text-[10px]">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-[#f5f0e6] border border-stone-300 rounded-full text-xs font-bold text-stone-900">
+                  <div className="w-5 h-5 rounded-full bg-[#163b2f] text-white flex items-center justify-center text-[10px]">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="truncate max-w-[80px]">{user.name}</span>
@@ -149,7 +163,7 @@ export function Navbar() {
                 <button
                   onClick={() => dispatch(logout())}
                   title="Sign Out"
-                  className="p-1.5 text-stone-500 hover:text-rose-600 hover:bg-stone-100 rounded-lg transition-colors cursor-pointer"
+                  className="p-1.5 text-stone-500 hover:text-rose-600 hover:bg-[#f5f0e6] rounded-lg transition-colors cursor-pointer"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
@@ -157,19 +171,19 @@ export function Navbar() {
             ) : (
               <button
                 onClick={() => dispatch(openAuthModal('login'))}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-stone-800 hover:text-stone-950 hover:bg-stone-100 border border-stone-200 rounded-full transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-stone-800 hover:text-stone-950 hover:bg-[#f5f0e6] border border-stone-300 rounded-full transition-colors cursor-pointer"
               >
                 <UserIcon className="w-3.5 h-3.5 text-stone-700" />
                 <span className="hidden xl:inline">Sign In</span>
               </button>
             )}
 
-            {/* Consultation Trigger */}
+            {/* Consultation Trigger with Royal Emerald Accent */}
             <button
               onClick={() => dispatch(openConsultationModal(undefined))}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-stone-900 bg-stone-100 hover:bg-stone-200 border border-stone-300 rounded-full transition-all shadow-2xs cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-[#163b2f] hover:bg-[#1f4e3f] border border-[#c5a059]/40 rounded-full transition-all shadow-2xs hover:shadow-xs cursor-pointer group"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+              <Sparkles className="w-3.5 h-3.5 text-[#dfca92] group-hover:rotate-12 transition-transform" />
               <span>Consultation</span>
             </button>
 
@@ -177,11 +191,11 @@ export function Navbar() {
             <button
               onClick={() => dispatch(toggleDrawer())}
               aria-label="View shopping bag"
-              className="relative p-2.5 rounded-full text-stone-900 hover:bg-stone-100 transition-colors border border-stone-300 cursor-pointer"
+              className="relative p-2.5 rounded-full text-stone-900 hover:bg-[#f5f0e6] transition-colors border border-stone-300 cursor-pointer"
             >
               <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-stone-900" />
               {totalCartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 px-1 text-[11px] font-bold text-white bg-stone-900 rounded-full animate-in zoom-in">
+                <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 px-1 text-[11px] font-bold text-white bg-[#163b2f] rounded-full animate-in zoom-in">
                   {totalCartCount}
                 </span>
               )}
@@ -190,7 +204,7 @@ export function Navbar() {
             {/* Mobile Menu Button (Hamburger) */}
             <button
               onClick={() => dispatch(toggleMobileMenu())}
-              className="lg:hidden p-2 rounded-xl text-stone-900 hover:bg-stone-100 border border-stone-200 transition-colors cursor-pointer"
+              className="lg:hidden p-2 rounded-xl text-stone-900 hover:bg-[#f5f0e6] border border-stone-300 transition-colors cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -198,6 +212,7 @@ export function Navbar() {
           </div>
         </div>
       </div>
+
 
       {/* Mobile Drawer (Tablet & Smartphone) */}
       {mobileMenuOpen && (
@@ -246,6 +261,18 @@ export function Navbar() {
           </div>
 
           <div className="pt-2 space-y-2">
+            {/* Currency switcher on mobile */}
+            <div className="flex items-center justify-between p-2.5 bg-[#f5f0e6] rounded-xl border border-[#c5a059]/30">
+              <span className="text-xs font-bold text-stone-800">Currency / العملة:</span>
+              <button
+                type="button"
+                onClick={() => dispatch(toggleCurrency())}
+                className="px-3 py-1 bg-white border border-[#c5a059]/50 rounded-lg text-xs font-bold text-stone-900 shadow-2xs"
+              >
+                {currency === 'SAR' ? '🇸🇦 SAR (ر.س)' : '🌐 USD ($)'}
+              </button>
+            </div>
+
             {isAuthenticated && user ? (
               <div className="flex items-center justify-between p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs">
                 <span className="font-bold text-stone-900">Signed in as {user.name}</span>
@@ -285,10 +312,10 @@ export function Navbar() {
                 dispatch(toggleMobileMenu());
                 dispatch(openConsultationModal(undefined));
               }}
-              className="w-full flex items-center justify-center gap-2 py-3 text-xs font-bold uppercase tracking-wider text-white bg-stone-900 hover:bg-stone-800 rounded-xl transition-colors shadow-sm cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 py-3 text-xs font-bold uppercase tracking-wider text-white bg-[#163b2f] hover:bg-[#1f4e3f] border border-[#c5a059]/40 rounded-xl transition-colors shadow-sm cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Book Design Consultation</span>
+              <Sparkles className="w-4 h-4 text-[#dfca92]" />
+              <span>Book Design Consultation · استشارة</span>
             </button>
           </div>
         </div>

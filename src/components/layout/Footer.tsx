@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Compass, Phone, MapPin, Mail, ArrowRight, Shield, Truck, Star } from 'lucide-react';
+import { Compass, Phone, MapPin, Mail, ArrowRight, Shield, Truck, Star, MessageCircle } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { openConsultationModal, openTrackingModal } from '@/store/slices/uiSlice';
 
@@ -11,6 +11,7 @@ const DELIVERY_CITIES = [
   'جدة · Jeddah',
   'الدمام · Dammam',
   'الخبر · Al-Khobar',
+  'الدرعية · Diriyah',
   'نيوم · NEOM',
   'المدينة المنورة · Madinah',
 ];
@@ -19,22 +20,25 @@ export function Footer() {
   const dispatch = useAppDispatch();
 
   return (
-    <footer className="bg-stone-900 text-stone-400 border-t border-stone-800">
+    <footer className="bg-[#0c0a09] text-stone-400 border-t border-[#c5a059]/20 relative overflow-hidden">
+      {/* Background Mashrabiya Watermark */}
+      <div className="absolute inset-0 bg-mashrabiya-dark opacity-20 pointer-events-none" />
+
       {/* Top trust bar */}
-      <div className="border-b border-stone-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div className="border-b border-stone-800/80 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
-            { icon: <Shield className="w-4 h-4 text-amber-500" />, title: 'Certified Saudi Craftsmanship', sub: 'Vision 2030 Quality Standards' },
-            { icon: <Truck className="w-4 h-4 text-amber-500" />, title: 'White-Glove KSA Delivery', sub: 'Riyadh · Jeddah · NEOM · Al-Khobar' },
-            { icon: <Star className="w-4 h-4 text-amber-500" />, title: 'Custom Orders: 40% Advance', sub: 'Secure escrow · SAR & USD accepted' },
+            { icon: <Shield className="w-4 h-4 text-[#dfca92]" />, title: 'Certified Saudi Craftsmanship', sub: 'Vision 2030 Quality Standards · معايير الجودة' },
+            { icon: <Truck className="w-4 h-4 text-[#dfca92]" />, title: 'White-Glove KSA Delivery', sub: 'Riyadh · Jeddah · NEOM · Al-Khobar' },
+            { icon: <Star className="w-4 h-4 text-[#dfca92]" />, title: 'Custom Orders: 40% Advance', sub: 'Secure escrow · SAR (ر.س) & USD accepted' },
           ].map((item) => (
-            <div key={item.title} className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-stone-800 border border-stone-700 flex items-center justify-center shrink-0 mt-0.5">
+            <div key={item.title} className="flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-stone-900 border border-[#c5a059]/30 flex items-center justify-center shrink-0 mt-0.5">
                 {item.icon}
               </div>
               <div>
                 <p className="text-xs font-bold text-stone-100">{item.title}</p>
-                <p className="text-[11px] text-stone-500 mt-0.5">{item.sub}</p>
+                <p className="text-[11px] text-stone-400 mt-0.5">{item.sub}</p>
               </div>
             </div>
           ))}
@@ -42,42 +46,43 @@ export function Footer() {
       </div>
 
       {/* Main footer grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
           {/* Brand Info */}
           <div className="space-y-5 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                <Compass className="w-4 h-4 text-amber-500" />
+              <div className="w-10 h-10 rounded-xl bg-[#163b2f] border border-[#c5a059]/40 flex items-center justify-center">
+                <Compass className="w-5 h-5 text-[#dfca92]" />
               </div>
               <div>
-                <span className="text-base font-serif font-bold tracking-tight text-stone-100 block">
+                <span className="text-base font-serif font-bold tracking-tight text-white block">
                   L'Atelier Studio
                 </span>
-                <span className="text-[10px] text-stone-500 tracking-widest uppercase font-medium">
-                  ستوديو الداخلية
+                <span className="text-[10px] text-[#dfca92] tracking-widest uppercase font-bold">
+                  ستوديو العمارة والتصميم
                 </span>
               </div>
             </div>
-            <p className="text-xs text-stone-500 leading-relaxed font-light">
+            <p className="text-xs text-stone-400 leading-relaxed font-light">
               Crafting bespoke villa interiors, royal Majlis sanctuaries, and custom architectural fittings engineered for the Saudi climate — from 50°C thermal-break windows to fluted privacy partitions.
             </p>
-            <div className="text-xs text-stone-500 space-y-2">
+            <div className="text-xs text-stone-400 space-y-2">
               <p className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+                <MapPin className="w-3.5 h-3.5 text-[#c5a059] shrink-0 mt-0.5" />
                 <span>King Fahd Road, Al Olaya District, Riyadh 12341, KSA</span>
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                <Phone className="w-3.5 h-3.5 text-[#c5a059] shrink-0" />
                 <a href="tel:+966112345678" className="hover:text-stone-200 transition-colors">+966 11 234 5678</a>
               </p>
               <p className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                <Mail className="w-3.5 h-3.5 text-[#c5a059] shrink-0" />
                 <a href="mailto:studio@latelier.sa" className="hover:text-stone-200 transition-colors">studio@latelier.sa</a>
               </p>
             </div>
           </div>
+
 
           {/* Curated Collections */}
           <div>

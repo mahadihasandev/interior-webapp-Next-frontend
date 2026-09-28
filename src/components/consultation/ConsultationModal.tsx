@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Sparkles, CheckCircle2, Calendar, Phone, Mail, User, MapPin } from 'lucide-react';
+import { X, Sparkles, CheckCircle2, Calendar, Phone, Mail, User, MapPin, MessageCircle } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { closeConsultationModal } from '@/store/slices/uiSlice';
 import { useBookConsultationMutation } from '@/store/services/consultationApi';
@@ -12,6 +12,7 @@ const SAUDI_CITIES = [
   'Dammam · الدمام',
   'Al-Khobar · الخبر',
   'NEOM · نيوم',
+  'Diriyah · الدرعية',
   'Madinah · المدينة المنورة',
   'Other City',
 ];
@@ -25,11 +26,11 @@ const SAR_BUDGETS = [
 ];
 
 const SCOPE_OPTIONS = [
+  'Physical Swatch Box Request · عينات الأقمشة والمعادن',
   'Thermal-Break Architectural Windows (50°C rated)',
   'Custom Partition Glass & Sliding Panels',
   'Fluted Privacy Screens & Majlis Dividers',
   'Royal Majlis Modular Sofa Set',
-  'Steel Gates, Railings & Sunshades',
   'Full Villa Interior Design & Planning',
   'Bespoke Millwork & Storage Walls',
 ];
@@ -89,19 +90,19 @@ export function ConsultationModal() {
         {/* Backdrop */}
         <div
           onClick={handleClose}
-          className="fixed inset-0 bg-stone-950/70 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 bg-[#0c0a09]/75 backdrop-blur-sm transition-opacity"
         />
 
         {/* Modal Dialog */}
-        <div className="relative w-full max-w-2xl transform rounded-3xl bg-white border border-stone-200 text-left shadow-2xl transition-all sm:my-8 text-stone-900 overflow-hidden">
+        <div className="relative w-full max-w-2xl transform rounded-3xl bg-white border border-[#c5a059]/30 text-left shadow-2xl transition-all sm:my-8 text-stone-900 overflow-hidden">
 
           {/* Decorative top accent */}
-          <div className="h-1.5 w-full bg-gradient-to-r from-amber-600 via-amber-400 to-stone-400" />
+          <div className="h-2 w-full bg-gradient-to-r from-[#163b2f] via-[#c5a059] to-[#163b2f]" />
 
           <div className="p-7 sm:p-9">
             <button
               onClick={handleClose}
-              className="absolute top-6 right-6 text-stone-400 hover:text-stone-700 p-2 rounded-xl hover:bg-stone-100 transition-colors"
+              className="absolute top-6 right-6 text-stone-400 hover:text-stone-700 p-2 rounded-xl hover:bg-stone-100 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -113,37 +114,61 @@ export function ConsultationModal() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-serif font-bold text-stone-900">
-                    طلب الاستشارة مُرسَل ✓
+                    طلب الاستشارة مُرسَل بنجاح ✓
                   </h3>
                   <p className="text-sm text-stone-500 mt-1">Consultation Request Received</p>
                 </div>
                 <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">
                   Thank you, <span className="text-stone-900 font-bold">{formData.client_name}</span>. Our lead architectural consultant will review your specifications and connect with you within <span className="font-bold">24 business hours</span>.
                 </p>
-                <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-900 font-medium text-left max-w-sm mx-auto">
+                <div className="p-4 bg-[#f5f0e6] border border-[#c5a059]/30 rounded-2xl text-xs text-stone-900 font-medium text-left max-w-sm mx-auto">
                   📍 {formData.city} · 📐 {formData.room_type.split('(')[0].trim()}
                 </div>
                 <div className="pt-2">
                   <button
                     onClick={handleClose}
-                    className="px-8 py-3 text-xs font-bold uppercase tracking-widest text-white bg-stone-900 hover:bg-stone-800 rounded-full transition-colors shadow-md"
+                    className="px-8 py-3 text-xs font-bold uppercase tracking-widest text-white bg-[#163b2f] hover:bg-[#1f4e3f] rounded-full transition-colors shadow-md cursor-pointer"
                   >
-                    Close & Explore Studio
+                    Close &amp; Explore Studio
                   </button>
                 </div>
               </div>
             ) : (
               <div>
-                <div className="flex items-center gap-2 mb-2 text-amber-700 text-[11px] font-bold uppercase tracking-widest">
+                <div className="flex items-center gap-2 mb-2 text-[#8f7033] text-[11px] font-bold uppercase tracking-widest">
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Bespoke Studio · ستوديو التصميم</span>
+                  <span>Saudi Villa Architecture Studio · ستوديو التصميم</span>
                 </div>
                 <h2 className="text-2xl font-serif font-bold text-stone-900 mb-1">
                   Book a Design Consultation
                 </h2>
-                <p className="text-xs text-stone-500 mb-7 font-light leading-relaxed">
-                  Our Saudi-based architects specialise in royal Majlis sanctuaries, 50°C thermal-break windows, fluted privacy partitions, and full villa interior planning. Tell us about your project.
+                <p className="text-xs text-stone-600 mb-5 font-light leading-relaxed">
+                  Our Saudi-based architects specialise in royal Majlis sanctuaries, 50°C thermal-break windows, fluted privacy partitions, and full villa interior planning across Riyadh, Jeddah, and Khobar.
                 </p>
+
+                {/* Instant WhatsApp Quick Access */}
+                <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#edf6f2] border border-[#163b2f]/30 mb-6">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white shrink-0">
+                      <MessageCircle className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-stone-900">Need Immediate Advice? تواصل فوري عبر الواتساب</p>
+                      <p className="text-[11px] text-stone-600">Connect directly with our Riyadh design consultant</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const text = encodeURIComponent('مرحباً، أود استشارة مهندس الديكور في لآتولييه بخصوص فيلا/مجلس');
+                      window.open(`https://wa.me/966501234567?text=${text}`, '_blank');
+                    }}
+                    className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl shrink-0 transition-colors shadow-2xs cursor-pointer"
+                  >
+                    WhatsApp VIP
+                  </button>
+                </div>
+
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Row 1 */}
@@ -281,12 +306,13 @@ export function ConsultationModal() {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full py-4 text-xs font-bold uppercase tracking-widest text-white bg-stone-900 hover:bg-stone-800 rounded-2xl transition-all shadow-lg shadow-stone-900/20 disabled:opacity-50 flex items-center justify-center gap-2 group"
+                      className="w-full py-4 text-xs font-bold uppercase tracking-widest text-white bg-[#163b2f] hover:bg-[#1f4e3f] active:bg-[#0e271f] border border-[#c5a059]/40 rounded-2xl transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2 group cursor-pointer"
                     >
-                      <Sparkles className="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform" />
-                      <span>{isLoading ? 'Submitting...' : 'Confirm Consultation · تأكيد الاستشارة'}</span>
+                      <Sparkles className="w-4 h-4 text-[#dfca92] group-hover:scale-110 transition-transform" />
+                      <span>{isLoading ? 'Submitting...' : 'Confirm Consultation · تأكيد طلب الاستشارة'}</span>
                     </button>
                   </div>
+
 
                   <p className="text-center text-[11px] text-stone-400">
                     By submitting, you agree to be contacted by our architectural team. No spam.

@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* ── Luxury Saudi & Architectural Design Tokens ───────────────────── */
+:root {
+  --color-travertine-50: #faf8f5;
+  --color-travertine-100: #f5f0e6;
+  --color-travertine-200: #ebe4d5;
+  --color-obsidian: #0c0a09;
+  --color-charcoal: #1c1917;
+  --color-gold-light: #dfca92;
+  --color-gold-primary: #c5a059;
+  --color-gold-dark: #8f7033;
+  --color-emerald-light: #edf6f2;
+  --color-emerald-primary: #163b2f;
+  --color-emerald-deep: #0e271f;
+  --color-terracotta: #c47c5d;
+}
+
 /* ── Base layer ───────────────────────────────────────────────────── */
 @layer base {
   html {
@@ -7,22 +23,29 @@
     color-scheme: light;
   }
   body {
-    background-color: #fafaf9;
+    background-color: #faf8f5;
     color: #1c1917;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   .font-serif {
     font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
   }
+  .font-amiri {
+    font-family: 'Amiri', 'Traditional Arabic', serif;
+  }
 }
 
-/* ── Scrollbars ───────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #f5f5f4; }
-::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+/* ── Luxury Scrollbars with Burnished Brass Thumb ──────────────────── */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: #f5f0e6; }
+::-webkit-scrollbar-thumb { 
+  background: #c5a059; 
+  border-radius: 9999px;
+  border: 1px solid #dfca92;
+}
+::-webkit-scrollbar-thumb:hover { background: #8f7033; }
 
 /* ── Page fade-in animation ───────────────────────────────────────── */
 @keyframes fadeInUp {
@@ -31,21 +54,67 @@
 }
 .animate-fade-in-up { animation: fadeInUp 0.5s ease-out both; }
 
-/* ── Skeleton shimmer loader ──────────────────────────────────────── */
+/* ── Shimmer & Ambient Glows ──────────────────────────────────────── */
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, #f5f5f4 25%, #e7e5e4 50%, #f5f5f4 75%);
+  background: linear-gradient(90deg, #f5f0e6 25%, #ebe4d5 50%, #f5f0e6 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
   border-radius: 0.75rem;
 }
 
-/* ── Arabic / RTL support ─────────────────────────────────────────── */
+/* ── Saudi Mashrabiya Geometric Lattice Patterns (Subtle Luxury) ──── */
+.bg-mashrabiya-light {
+  background-image: 
+    radial-gradient(rgba(197, 160, 89, 0.12) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(22, 59, 47, 0.06) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+.bg-mashrabiya-dark {
+  background-image: 
+    radial-gradient(rgba(197, 160, 89, 0.22) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(216, 178, 110, 0.10) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.bg-mashrabiya-emerald {
+  background-image: 
+    radial-gradient(rgba(22, 59, 47, 0.15) 1.2px, transparent 1.2px),
+    radial-gradient(rgba(197, 160, 89, 0.10) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+  background-position: 0 0, 13px 13px;
+}
+
+/* ── Elegant Gradients & Borders ──────────────────────────────────── */
+.gold-shimmer-border {
+  border: 1px solid transparent;
+  background-image: linear-gradient(#ffffff, #ffffff), linear-gradient(135deg, #c5a059, #dfca92, #8f7033);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.emerald-badge {
+  background: linear-gradient(135deg, rgba(22, 59, 47, 0.08) 0%, rgba(22, 59, 47, 0.16) 100%);
+  border: 1px solid rgba(22, 59, 47, 0.25);
+  color: #163b2f;
+}
+
+.gold-badge {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.12) 0%, rgba(197, 160, 89, 0.22) 100%);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  color: #8f7033;
+}
+
+/* ── Arabic / RTL Typography Support ──────────────────────────────── */
 .ar {
-  font-family: 'Inter', 'Segoe UI', 'Arial Unicode MS', sans-serif;
+  font-family: 'Amiri', 'Traditional Arabic', 'Inter', sans-serif;
   direction: rtl;
   text-align: right;
 }
+

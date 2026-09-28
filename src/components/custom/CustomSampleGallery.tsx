@@ -301,13 +301,14 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
   return (
     <div className="space-y-6">
       {/* Visual Header for Customer Who Wants Help Choosing */}
-      <div className="bg-stone-900 text-white rounded-3xl p-6 sm:p-8 border border-stone-800 relative overflow-hidden shadow-lg">
+      <div className="bg-[#0c0a09] text-white rounded-3xl p-6 sm:p-8 border border-[#c5a059]/30 relative overflow-hidden shadow-xl">
         {/* Subtle decorative background pattern */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-amber-500/10 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-mashrabiya-dark opacity-30 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-radial from-[#c5a059]/15 via-transparent to-transparent pointer-events-none" />
 
         <div className="relative z-10 space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-widest">
-            <Sun className="w-3.5 h-3.5 text-amber-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c5a059]/20 border border-[#c5a059]/40 text-[#dfca92] text-xs font-bold uppercase tracking-widest">
+            <Sun className="w-3.5 h-3.5 text-[#dfca92]" />
             <span>Saudi Arabia Architectural & Majlis Collection · مجموعة الفلل والمجالس السعودية</span>
           </div>
 
@@ -318,22 +319,22 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
             </span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-sm text-stone-300 leading-relaxed max-w-2xl font-light">
             Whether you need <span className="text-white font-bold">50°C heat-insulated thermal break windows for Riyadh summers</span>, a <span className="text-white font-bold">fluted glass privacy partition separating your Majlis</span>, or a <span className="text-white font-bold">grand luxury modular salon sofa</span> — click any installed Saudi villa sample to load its exact specifications.
           </p>
 
           {/* Quick Feature Badges */}
           <div className="flex flex-wrap items-center gap-3 pt-2 text-[11px] font-bold text-stone-200">
-            <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1 rounded-lg border border-stone-700">
+            <span className="flex items-center gap-1 bg-stone-900/90 px-3 py-1 rounded-lg border border-[#c5a059]/30">
               ☀️ 50°C SASO Desert Thermal Rating
             </span>
-            <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1 rounded-lg border border-stone-700">
-              🌪️ Hermetic Micro-Sand & Dust Seal
+            <span className="flex items-center gap-1 bg-stone-900/90 px-3 py-1 rounded-lg border border-[#c5a059]/30">
+              🌪️ Hermetic Micro-Sand &amp; Dust Seal
             </span>
-            <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1 rounded-lg border border-stone-700">
-              🚚 Delivery to Riyadh, Jeddah, Khobar & Neom
+            <span className="flex items-center gap-1 bg-stone-900/90 px-3 py-1 rounded-lg border border-[#c5a059]/30">
+              🚚 Delivery to Riyadh, Jeddah, Khobar &amp; Neom
             </span>
-            <span className="flex items-center gap-1 bg-stone-800/80 px-3 py-1 rounded-lg border border-stone-700">
+            <span className="flex items-center gap-1 bg-stone-900/90 px-3 py-1 rounded-lg border border-[#c5a059]/30">
               💳 40% Advance · Balance on Site Handover
             </span>
           </div>
@@ -349,15 +350,16 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
             onClick={() => setActiveCategory(cat.id)}
             className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition-all shrink-0 cursor-pointer flex flex-col items-start ${
               activeCategory === cat.id
-                ? 'bg-stone-900 text-white shadow-md'
-                : 'bg-white hover:bg-stone-100 text-stone-700 border border-stone-200'
+                ? 'bg-[#163b2f] text-white border border-[#c5a059]/40 shadow-md'
+                : 'bg-white hover:bg-[#f5f0e6] text-stone-700 border border-stone-200'
             }`}
           >
             <span>{cat.nameEn}</span>
-            <span className="text-[10px] font-normal opacity-80">{cat.nameAr}</span>
+            <span className="text-[10px] font-normal text-[#8f7033]">{cat.nameAr}</span>
           </button>
         ))}
       </div>
+
 
       {/* Sample Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -480,24 +482,25 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
                   onClick={() => onSelectSample(sample)}
                   className={`w-full py-3.5 px-4 rounded-2xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-md'
-                      : 'bg-stone-900 hover:bg-stone-800 text-white shadow-xs hover:scale-[1.01]'
+                      ? 'bg-emerald-800 text-white shadow-md border border-emerald-500'
+                      : 'bg-[#163b2f] hover:bg-[#1f4e3f] text-white shadow-xs border border-[#c5a059]/30 hover:scale-[1.01]'
                   }`}
                 >
                   {isSelected ? (
                     <>
                       <CheckCircle2 className="w-4 h-4 text-emerald-200" />
-                      <span>Loaded in Studio · جاهز للتخصيص</span>
+                      <span>Loaded in Studio · تم التحميل في الاستوديو</span>
                     </>
                   ) : (
                     <>
-                      <Sliders className="w-4 h-4 text-white" />
+                      <Sliders className="w-4 h-4 text-[#dfca92]" />
                       <span>Choose This Sample & Customize · اختر هذا التصميم</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-stone-300" />
+                      <ArrowRight className="w-3.5 h-3.5 text-[#dfca92]" />
                     </>
                   )}
                 </button>
               </div>
+
             </div>
           );
         })}
