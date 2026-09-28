@@ -1,5 +1,5 @@
 import { baseApi } from './api';
-import { ApiResponse, Category, Product, ProductFilters } from '@/types';
+import { ApiResponse, Category, CustomSample, Product, ProductFilters } from '@/types';
 
 export const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

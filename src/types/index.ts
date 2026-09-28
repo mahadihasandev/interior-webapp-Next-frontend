@@ -156,14 +156,14 @@ export interface CustomSample {
     glassId?: string;
     heightInches?: number;
     widthInches?: number;
-    gauge?: string;
-    mullionStyle?: string;
+    gauge?: '1.5mm' | '2.0mm' | '2.5mm' | string;
+    mullionStyle?: 'minimal' | 'grid_3x2' | 'single_cross' | string;
     addons?: { [key: string]: boolean };
     layoutId?: string;
     fabricId?: string;
     legId?: string;
-    seatDepth?: string;
-    cushionCore?: string;
+    seatDepth?: 'standard' | 'deep_lounge' | string;
+    cushionCore?: 'cloud_plush' | 'down_blend' | 'firm_foam' | string;
   };
 }
 

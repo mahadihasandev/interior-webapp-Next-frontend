@@ -49,8 +49,9 @@ export function AuthModal() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/auth/login', {
+      const res = await fetch(`${apiBase}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -84,8 +85,9 @@ export function AuthModal() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/auth/register', {
+      const res = await fetch(`${apiBase}/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, phone }),

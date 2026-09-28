@@ -16,45 +16,8 @@ import {
 } from 'lucide-react';
 import { useGetVillaDesignsQuery } from '@/store/services/productsApi';
 
-export interface CustomSample {
-  id: string;
-  dbId?: number;
-  type: 'fitting' | 'sofa';
-  titleEn: string;
-  titleAr: string;
-  tagline: string;
-  roomCategory: 'majlis' | 'thermal_window' | 'privacy_partition' | 'family_living' | string;
-  roomCategoryLabel: string;
-  categoryNameAr?: string;
-  locationTag: string; // e.g., 'Riyadh Villa · Hittin District', 'Jeddah Seafront Villa', 'Dammam Executive Majlis'
-  photoUrl: string;
-  detailPhotoUrl: string;
-  priceSAR: number;
-  priceUSD: number;
-  advanceDepositSAR: number;
-  advanceDepositUSD: number;
-  saudiFeatures: string[]; // e.g. '50°C Thermal Break', 'Double Dust Seal', 'Majlis Acoustic Privacy'
-  specs: {
-    dimensions: string;
-    finishOrFabric: string;
-    coreMaterial: string;
-    hardware: string;
-  };
-  configData: {
-    finishId?: string;
-    glassId?: string;
-    heightInches?: number;
-    widthInches?: number;
-    gauge?: '1.5mm' | '2.0mm' | '2.5mm';
-    mullionStyle?: 'minimal' | 'grid_3x2' | 'single_cross';
-    addons?: { [key: string]: boolean };
-    layoutId?: string;
-    fabricId?: string;
-    legId?: string;
-    seatDepth?: 'standard' | 'deep_lounge';
-    cushionCore?: 'cloud_plush' | 'down_blend' | 'firm_foam';
-  };
-}
+import { CustomSample } from '@/types';
+export type { CustomSample };
 
 export const SAUDI_CUSTOM_SAMPLES: CustomSample[] = [
   // 1. Majlis Privacy Partition with Modern Mashrabiya
