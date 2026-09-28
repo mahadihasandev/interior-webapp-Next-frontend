@@ -49,7 +49,7 @@ export function AuthModal() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
-    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://interior-webapp-php-backend.onrender.com/api';
     try {
       const res = await fetch(`${apiBase}/auth/login`, {
         method: 'POST',
@@ -85,7 +85,7 @@ export function AuthModal() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
-    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
+    const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://interior-webapp-php-backend.onrender.com/api';
     try {
       const res = await fetch(`${apiBase}/auth/register`, {
         method: 'POST',

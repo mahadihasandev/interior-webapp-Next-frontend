@@ -246,7 +246,7 @@ export const SAUDI_CUSTOM_SAMPLES: CustomSample[] = [
 const resolveImageUrl = (url: string) => {
   if (!url) return '';
   if (url.startsWith('/storage/')) {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://127.0.0.1:8000';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'https://interior-webapp-php-backend.onrender.com';
     return `${backendUrl}${url}`;
   }
   return url;

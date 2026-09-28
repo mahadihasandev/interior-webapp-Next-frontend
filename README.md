@@ -4,28 +4,33 @@ Luxury interior architecture, custom bespoke CAD visualizer, and ready-made furn
 
 ---
 
-## 🚀 Deploying to Render (render.com)
+## 🚀 Deploying to Vercel (Recommended)
 
-Render can run this Next.js application as a **Node Web Service**.
+Vercel provides native 100% performance for Next.js with global Edge caching, zero cold starts, and automatic HTTPS.
 
-### Step-by-Step Instructions:
-1. Log in to [dashboard.render.com](https://dashboard.render.com).
-2. Click **New +** > **Web Service**.
-3. Connect your repository: `https://github.com/mahadihasandev/interior-webapp-Next-frontend.git`.
-4. Configure settings:
-   - **Name**: `interior-shop-frontend`
-   - **Region**: Same region as your backend (e.g. Oregon or Frankfurt)
-   - **Branch**: `main`
-   - **Runtime**: `Node`
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
-   - **Instance Type**: `Free`
-5. In **Environment Variables**, add:
-   | Key | Value / Example | Notes |
-   |---|---|---|
-   | `NODE_ENV` | `production` | Production mode |
-   | `NEXT_PUBLIC_API_URL` | `https://<your-backend-slug>.onrender.com/api` | Point to your deployed Laravel backend API URL |
-6. Click **Create Web Service**.
+### 1-Click Deployment Steps:
+1. Log in to [vercel.com](https://vercel.com) (with your GitHub account).
+2. Click **Add New...** > **Project**.
+3. Import the repository: `mahadihasandev/interior-webapp-Next-frontend`.
+4. In **Environment Variables**, set:
+   | Key | Value |
+   |---|---|
+   | `NEXT_PUBLIC_API_URL` | `https://interior-webapp-php-backend.onrender.com/api` |
+5. Click **Deploy**.
+
+Your storefront will be live across worldwide CDN edges in ~40 seconds!
+
+---
+
+## 🚀 Alternative: Deploying to Render (render.com)
+
+If you prefer deploying the frontend to Render as well:
+1. In [Render Dashboard](https://dashboard.render.com), click **New +** > **Web Service**.
+2. Connect `https://github.com/mahadihasandev/interior-webapp-Next-frontend.git`.
+3. Set **Runtime**: `Node`, **Build Command**: `npm install && npm run build`, **Start Command**: `npm start`.
+4. Add environment variable:
+   - `NEXT_PUBLIC_API_URL`: `https://interior-webapp-php-backend.onrender.com/api`
+5. Click **Create Web Service**.
 
 ---
 
@@ -43,11 +48,7 @@ The storefront is fully responsive across all device classes:
 # 1. Install dependencies
 npm install
 
-# 2. Configure environment
-cp .env.example .env.local
-# Set NEXT_PUBLIC_API_URL=http://127.0.0.1:8000/api
-
-# 3. Start local development server
+# 2. Start local development server
 npm run dev
 ```
 
