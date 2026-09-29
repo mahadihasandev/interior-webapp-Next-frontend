@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -295,6 +295,249 @@ export const FALLBACK_CUSTOM_PRODUCTS: Product[] = [
       ],
     },
   },
+  {
+    id: 105,
+    category_id: 1,
+    name: 'Grand Pivoting Glass & Aluminum Villa Entrance Door',
+    slug: 'grand-pivoting-glass-aluminum-villa-entrance-door',
+    tagline: 'Concealed heavy-duty pivot hinge · 3m architectural height · Biometric smart access',
+    description:
+      'Monumental architectural pivot entrance door engineered for luxury Saudi villas. Features concealed floor pivot with 500kg load capacity, 3-point automatic biometric deadbolts, and insulated safety structural glass with thermal break profile.',
+    product_type: 'custom_fit',
+    price: 1400.0,
+    compare_at_price: 1900.0,
+    price_min: 1400.0,
+    price_max: 1900.0,
+    price_range_formatted: '1,400 – 1,900 SAR',
+    dimensions: '280cm H × 180cm W (Customizable up to 3.5m height)',
+    materials: 'Thermal Break Structural Alloy 2.5mm, 32mm Insulated Toughened Safety Glass',
+    color: 'Matte Architectural Black / Champagne Bronze',
+    stock: 30,
+    in_stock: true,
+    is_featured: true,
+    rating: 4.97,
+    reviews_count: 28,
+    image_url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85',
+    gallery: [
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85',
+    ],
+    customization_options: {
+      min_price: 1400.0,
+      max_price: 1900.0,
+      default_height: 280,
+      default_width: 180,
+      min_height: 200,
+      max_height: 360,
+      min_width: 120,
+      max_width: 250,
+      measurement_unit: 'cm',
+      shutters_options: [
+        { id: '1_pivot', name: 'Single Grand Pivot Door', description: 'Offset concealed hydraulic pivot system', price_delta: 0 },
+        { id: '2_pivot_sidelite', name: 'Pivot with Fixed Glass Sidelight', description: 'Panoramic natural entrance light', price_delta: 220 },
+      ],
+      aluminum_options: [
+        { id: 'royal_2_5', name: 'Royal Gulf Heavy Duty 2.5mm', badge: 'High Wind Rating', thickness: '2.5mm', price_delta: 0 },
+        { id: 'alupco_3_0', name: 'Alupco Monumental Profile 3.0mm', badge: 'Extreme Security', thickness: '3.0mm', price_delta: 140 },
+      ],
+      glass_options: [
+        { id: 'tinted_grey', name: 'Smoky Charcoal Tinted Security Glass', tint: '#3a3a3a', specs: 'Double laminated privacy glass', price_delta: 0 },
+        { id: 'bronze_refl', name: 'Reflective Bronze Privacy Glass', tint: '#8c6239', specs: 'Sunlight reflection & high privacy', price_delta: 40 },
+        { id: 'frosted_acid', name: 'Acid-Etched Architectural Privacy', tint: '#e5e7eb', specs: 'Diffused elegant interior daylight', price_delta: 60 },
+      ],
+      color_options: [
+        { id: 'black', name: 'Matte Architectural Black', hex: '#1e1e1e' },
+        { id: 'gold', name: 'Champagne Gold / Bronze', hex: '#c5a059' },
+        { id: 'anthracite', name: 'Metallic Anthracite Charcoal', hex: '#3b3e40' },
+      ],
+      addons: [
+        { id: 'biometric_lock', name: 'German Biometric Fingerprint Smart Lock', price: 280, selected: true },
+        { id: 'hydraulic_closer', name: 'Concealed Hydraulic Soft-Closer', price: 150, selected: true },
+        { id: 'dust_seal', name: 'Heavy Hermetic Bottom Drop Dust Seal', price: 0, selected: true },
+      ],
+    },
+  },
+  {
+    id: 106,
+    category_id: 1,
+    name: 'Frameless Acoustic Glass Partition & Majlis Sliding Wall',
+    slug: 'frameless-acoustic-glass-majlis-partition',
+    tagline: '40dB acoustic isolation · Flush recessed top track · Modular acoustic salon divider',
+    description:
+      'Concealed overhead track system with floor-free threshold. Designed for Saudi villa Majlis, prayer halls, and executive salons to partition large spaces effortlessly while retaining architectural daylight and acoustic quietness.',
+    product_type: 'custom_fit',
+    price: 750.0,
+    compare_at_price: 1050.0,
+    price_min: 750.0,
+    price_max: 1050.0,
+    price_range_formatted: '750 – 1,050 SAR',
+    dimensions: '260cm H × 300cm W (Customizable up to 4m height)',
+    materials: '12mm Acoustic Toughened Laminated Glass, Concealed Top Aluminum Track',
+    color: 'Matte Black Hardware / Brushed Champagne Brass',
+    stock: 50,
+    in_stock: true,
+    is_featured: true,
+    rating: 4.93,
+    reviews_count: 22,
+    image_url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85',
+    gallery: [
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=85',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85',
+    ],
+    customization_options: {
+      min_price: 750.0,
+      max_price: 1050.0,
+      default_height: 260,
+      default_width: 300,
+      min_height: 180,
+      max_height: 380,
+      min_width: 150,
+      max_width: 700,
+      measurement_unit: 'cm',
+      shutters_options: [
+        { id: '2_panels', name: '2 Sliding Glass Panels', description: 'Dual glide overhead track', price_delta: 0 },
+        { id: '3_panels', name: '3 Telescopic Stacking Panels', description: 'Wide Majlis clear entrance', price_delta: 120 },
+        { id: '4_panels', name: '4 Bifold Stacking Glass Wall', description: 'Full opening wall partition', price_delta: 210 },
+      ],
+      aluminum_options: [
+        { id: 'slim_top_track', name: 'Recessed Flush Ceiling Track', badge: 'Concealed Profile', thickness: '2.0mm', price_delta: 0 },
+        { id: 'heavy_track', name: 'Heavy-Duty Bearing Track System', badge: 'High Cycle Durability', thickness: '2.5mm', price_delta: 60 },
+      ],
+      glass_options: [
+        { id: 'ultra_clear', name: 'Low-Iron Ultra-Clear Acoustic Laminated', tint: '#ffffff', specs: '12mm sound dampening safety glass', price_delta: 0 },
+        { id: 'frosted_fluted', name: 'Fluted / Moru Ribbed Privacy Glass', tint: '#f0ede6', specs: 'Trendy luxury privacy ribs', price_delta: 70 },
+        { id: 'tinted_bronze', name: 'Warm Bronze Tinted Acoustic Glass', tint: '#8c6239', specs: 'Majlis warm ambiance', price_delta: 40 },
+      ],
+      color_options: [
+        { id: 'black', name: 'Matte Architectural Black', hex: '#1e1e1e' },
+        { id: 'gold', name: 'Champagne Gold / Bronze', hex: '#c5a059' },
+      ],
+      addons: [
+        { id: 'soft_close', name: 'Dual Direction Hydraulic Soft-Stop', price: 110, selected: true },
+        { id: 'acoustic_seals', name: 'Perimeter Acoustic Gasket Seals', price: 80, selected: true },
+      ],
+    },
+  },
+  {
+    id: 107,
+    category_id: 1,
+    name: 'Motorized Thermal Roof Skylight & Ventilation Hatch',
+    slug: 'motorized-thermal-roof-skylight-system',
+    tagline: 'Rain & wind sensors · Solar-powered motorized open · Hermetic sandstorm weatherseal',
+    description:
+      'Automated architectural roof glass skylight providing natural atrium daylight and passive hot air extraction. Double laminated Low-E argon-filled glazing keeps 99% UV and radiant heat outside.',
+    product_type: 'custom_fit',
+    price: 1250.0,
+    compare_at_price: 1650.0,
+    price_min: 1250.0,
+    price_max: 1650.0,
+    price_range_formatted: '1,250 – 1,650 SAR',
+    dimensions: '150cm H × 150cm W (Custom curb dimensions)',
+    materials: 'Thermally Broken Cast Aluminum Curb, Low-E Solar Reflective Double Glazing',
+    color: 'Matte Architectural Black / Pure White Interior',
+    stock: 25,
+    in_stock: true,
+    is_featured: true,
+    rating: 4.94,
+    reviews_count: 16,
+    image_url: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=85',
+    gallery: [
+      'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=85',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85',
+    ],
+    customization_options: {
+      min_price: 1250.0,
+      max_price: 1650.0,
+      default_height: 150,
+      default_width: 150,
+      min_height: 80,
+      max_height: 250,
+      min_width: 80,
+      max_width: 250,
+      measurement_unit: 'cm',
+      shutters_options: [
+        { id: '1_fixed_sky', name: 'Fixed Non-Opening Skylight', description: 'Permanent sealed daylight opening', price_delta: -150 },
+        { id: '1_motorized_sky', name: 'Motorized Ventilation Hatch', description: 'Remote controlled opening with auto rain shut', price_delta: 0 },
+      ],
+      aluminum_options: [
+        { id: 'thermal_curb', name: 'SASO Thermal Break Insulated Curb', badge: 'Heat Shield', thickness: '2.5mm', price_delta: 0 },
+      ],
+      glass_options: [
+        { id: 'solar_low_e', name: 'Triple Glazed Solar-Shield Low-E', tint: '#99ccee', specs: '88% radiant desert heat rejection', price_delta: 0 },
+        { id: 'reflective_gold', name: 'Reflective Gold Mirrored Glazing', tint: '#c5a059', specs: 'High glare and heat barrier', price_delta: 60 },
+      ],
+      color_options: [
+        { id: 'black', name: 'Matte Architectural Black', hex: '#1e1e1e' },
+        { id: 'sand_white', name: 'Desert Sand Warm White', hex: '#f4ede2' },
+      ],
+      addons: [
+        { id: 'rain_sensor', name: 'Automatic Rain & Sandstorm Sensor', price: 120, selected: true },
+        { id: 'blackout_blind', name: 'Motorized Internal Blackout Blind', price: 250, selected: false },
+      ],
+    },
+  },
+  {
+    id: 108,
+    category_id: 1,
+    name: 'Heavy-Duty Architectural Pergola Glass Louver System',
+    slug: 'storm-proof-architectural-pergola-glass-louvers',
+    tagline: 'Adjustable 0–90° motorized louvers · Alupco structural grade · Desert courtyard breeze',
+    description:
+      'Precision engineered adjustable tempered glass louver panels for luxury villa terraces, outdoor Majlis courtyards, and rooftop lounges. Offers full control over shading, ventilation, and privacy with high wind resistance.',
+    product_type: 'custom_fit',
+    price: 900.0,
+    compare_at_price: 1300.0,
+    price_min: 900.0,
+    price_max: 1300.0,
+    price_range_formatted: '900 – 1,300 SAR',
+    dimensions: '220cm H × 120cm W (Custom bank width)',
+    materials: '10mm Heat-Strengthened Glass Blades, Heavy Extruded Alupco Frame',
+    color: 'Matte Architectural Black / Champagne Bronze',
+    stock: 40,
+    in_stock: true,
+    is_featured: true,
+    rating: 4.91,
+    reviews_count: 14,
+    image_url: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85',
+    gallery: [
+      'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85',
+      'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85',
+    ],
+    customization_options: {
+      min_price: 900.0,
+      max_price: 1300.0,
+      default_height: 220,
+      default_width: 120,
+      min_height: 100,
+      max_height: 300,
+      min_width: 60,
+      max_width: 200,
+      measurement_unit: 'cm',
+      shutters_options: [
+        { id: 'manual_louver', name: 'Smooth Manual Lever Control', description: 'Simple dual crank tilt', price_delta: 0 },
+        { id: 'motorized_louver', name: 'Motorized Smart Remote Tilt', description: 'Push-button angle adjustment', price_delta: 190 },
+      ],
+      aluminum_options: [
+        { id: 'alupco_2_0', name: 'Alupco Architectural Thermal 2.0mm', badge: 'SASO Certified', thickness: '2.0mm', price_delta: 0 },
+        { id: 'royal_2_5', name: 'Royal Gulf Heavy Duty 2.5mm', badge: 'High Wind Load', thickness: '2.5mm', price_delta: 80 },
+      ],
+      glass_options: [
+        { id: 'tinted_grey', name: 'Smoky Charcoal Anti-Glare Glass', tint: '#4a4a4a', specs: 'Cool shading and sun protection', price_delta: 0 },
+        { id: 'frosted_diffuse', name: 'Frosted Translucent Privacy Glass', tint: '#e5e7eb', specs: 'Total privacy with diffused light', price_delta: 30 },
+        { id: 'reflective_bronze', name: 'Reflective Bronze Privacy Glass', tint: '#8c6239', specs: 'Royal warm glow', price_delta: 40 },
+      ],
+      color_options: [
+        { id: 'black', name: 'Matte Architectural Black', hex: '#1e1e1e' },
+        { id: 'gold', name: 'Champagne Gold / Bronze', hex: '#c5a059' },
+        { id: 'sand_white', name: 'Desert Sand Warm White', hex: '#f4ede2' },
+      ],
+      addons: [
+        { id: 'integrated_flyscreen', name: 'Concealed Integrated Insect Screen', price: 110, selected: true },
+        { id: 'acoustic_blade_seals', name: 'Silicone Gasket Blade Edge Seals', price: 50, selected: true },
+      ],
+    },
+  },
 ];
 
 export function HeroCustomProductSection() {
@@ -550,12 +793,50 @@ export function HeroCustomProductSection() {
  */
 export function HeroCustomProductCardsGrid() {
   const router = useRouter();
-  const { data: apiProducts } = useGetCustomFitProductsQuery(4);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const { data: apiProducts } = useGetCustomFitProductsQuery(20);
 
   const products: Product[] = React.useMemo(() => {
     if (apiProducts && apiProducts.length > 0) return apiProducts;
     return FALLBACK_CUSTOM_PRODUCTS;
   }, [apiProducts]);
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const checkScroll = useCallback(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 10);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+    const maxScroll = scrollWidth - clientWidth;
+    setScrollProgress(maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0);
+  }, []);
+
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
+    checkScroll();
+    el.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll);
+    return () => {
+      el.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, [checkScroll, products]);
+
+  const scrollSlider = (direction: 'prev' | 'next') => {
+    const el = sliderRef.current;
+    if (!el) return;
+    const cardEl = el.querySelector<HTMLElement>('[data-slider-item]');
+    const cardWidth = cardEl ? cardEl.offsetWidth + 24 : 320;
+    el.scrollBy({
+      left: direction === 'next' ? cardWidth : -cardWidth,
+      behavior: 'smooth',
+    });
+  };
 
   const getPriceRange = (product: Product) => {
     const min = product.price_min ?? product.price ?? 800;
@@ -570,7 +851,7 @@ export function HeroCustomProductCardsGrid() {
     <section className="relative z-20 max-w-7xl mx-auto px-6 sm:px-10">
       <div className="bg-white rounded-3xl border border-[#e2d9cc] p-6 sm:p-10 shadow-sm space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-[#e2d9cc]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 border-b border-[#e2d9cc]">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase text-[#b8933f] mb-1">
               <Sparkles className="w-3.5 h-3.5" />
@@ -579,114 +860,217 @@ export function HeroCustomProductCardsGrid() {
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1a1815]">
               Custom Architectural Products
             </h2>
-            <p className="text-xs sm:text-sm text-[#7a7166] mt-1 max-w-2xl">
-              Choose an architectural profile below. Specify height, width, number of shutters, aluminum brand, and glass color in the custom order builder.
+            <p className="text-xs sm:text-sm text-[#7a7166] mt-1 max-w-2xl leading-relaxed">
+              Slide through our architectural profiles. Specify height, width, number of shutters, aluminum brand, and glass color in the custom order builder.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3ede4] text-[#1a3d30] text-xs font-semibold border border-[#e2d9cc]">
+          {/* Action Header: See More Button & Slider Controls */}
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f3ede4] text-[#1a3d30] text-xs font-semibold border border-[#e2d9cc]">
               <ShieldCheck className="w-3.5 h-3.5 text-[#1a3d30]" />
               50°C Thermal Break Certified
             </span>
+
+            {/* Prominent "See More" Button */}
+            <Link
+              href="/custom-products"
+              id="see-more-custom-products-btn"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1a1815] text-[#d4b06a] hover:bg-[#b8933f] hover:text-[#1a1815] text-xs font-bold uppercase tracking-wider transition-all duration-300 shadow-sm shrink-0 group cursor-pointer"
+            >
+              <span>See More · عرض الكل</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+
+            {/* Slider Navigation Arrows */}
+            <div className="flex items-center gap-1.5 bg-[#f3ede4] p-1 rounded-full border border-[#e2d9cc] shrink-0">
+              <button
+                type="button"
+                onClick={() => scrollSlider('prev')}
+                disabled={!canScrollLeft}
+                aria-label="Previous custom products"
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                  canScrollLeft
+                    ? 'bg-white text-[#1a1815] shadow-xs hover:bg-[#1a1815] hover:text-white'
+                    : 'text-[#a89f91] opacity-40 cursor-not-allowed'
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollSlider('next')}
+                disabled={!canScrollRight}
+                aria-label="Next custom products"
+                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                  canScrollRight
+                    ? 'bg-white text-[#1a1815] shadow-xs hover:bg-[#1a1815] hover:text-white'
+                    : 'text-[#a89f91] opacity-40 cursor-not-allowed'
+                }`}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* 4-Column Ecommerce Product Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => {
-            const priceRange = getPriceRange(product);
-            const targetUrl = `/custom-order/${product.slug || product.id}`;
+        {/* Responsive Horizontal Slider Container */}
+        <div className="relative">
+          <div
+            ref={sliderRef}
+            className="flex gap-5 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {products.map((product) => {
+              const priceRange = getPriceRange(product);
+              const targetUrl = `/custom-order/${product.slug || product.id}`;
 
-            return (
-              <div
-                key={product.id}
-                onClick={() => router.push(targetUrl)}
-                className="group cursor-pointer rounded-2xl bg-[#faf8f5] hover:bg-white border border-[#e2d9cc] hover:border-[#b8933f]/60 hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden"
-              >
-                {/* Product Image Frame */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#e8ddd0]">
-                  <img
-                    src={resolveImageUrl(product.image_url)}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+              return (
+                <div
+                  key={product.id}
+                  data-slider-item
+                  onClick={() => router.push(targetUrl)}
+                  className="w-[280px] sm:w-[320px] lg:w-[calc(25%-18px)] shrink-0 snap-start group cursor-pointer rounded-2xl bg-[#faf8f5] hover:bg-white border border-[#e2d9cc] hover:border-[#b8933f]/70 hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden"
+                >
+                  {/* Product Image Frame */}
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#e8ddd0]">
+                    <img
+                      src={resolveImageUrl(product.image_url)}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 
-                  {/* Top Badges */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[#1a1815] text-[10px] font-bold uppercase tracking-wider shadow">
-                      Made to Order
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium border border-white/20">
-                      ★ {product.rating || 4.9}
-                    </span>
-                  </div>
-
-                  {/* Multiple Gallery Photos Pill */}
-                  {product.gallery && product.gallery.length > 0 && (
-                    <div className="absolute bottom-2.5 left-3">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm text-white/90 text-[10px] font-mono">
-                        <Layers className="w-2.5 h-2.5 text-[#d4b06a]" />
-                        {product.gallery.length} Images
+                    {/* Top Badges */}
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                      <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[#1a1815] text-[10px] font-bold uppercase tracking-wider shadow">
+                        Made to Order
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium border border-white/20">
+                        ★ {product.rating || 4.9}
                       </span>
                     </div>
-                  )}
+
+                    {/* Multiple Gallery Photos Pill */}
+                    {product.gallery && product.gallery.length > 0 && (
+                      <div className="absolute bottom-2.5 left-3">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm text-white/90 text-[10px] font-mono">
+                          <Layers className="w-2.5 h-2.5 text-[#d4b06a]" />
+                          {product.gallery.length} Images
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Content Body */}
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+                    <div className="space-y-1.5">
+                      {/* Category / Dimension Note */}
+                      <p className="text-[10px] uppercase font-bold tracking-wider text-[#b8933f]">
+                        Architectural Glass &amp; Aluminum
+                      </p>
+
+                      {/* Product Title */}
+                      <h3 className="text-sm font-serif font-bold text-[#1a1815] group-hover:text-[#b8933f] transition-colors line-clamp-2">
+                        {product.name}
+                      </h3>
+
+                      {/* Description preview */}
+                      <p className="text-[11px] text-[#7a7166] line-clamp-2 leading-relaxed">
+                        {product.tagline || product.description}
+                      </p>
+                    </div>
+
+                    {/* Spec Quick Chips */}
+                    <div className="pt-2 border-t border-[#e2d9cc]/60 flex flex-wrap gap-1 text-[10px] text-[#3d3833]">
+                      <span className="px-2 py-0.5 rounded bg-white border border-[#e2d9cc]">
+                        Custom Height &amp; Width
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-white border border-[#e2d9cc]">
+                        {product.customization_options?.shutters_options
+                          ? `${product.customization_options.shutters_options.length} Styles`
+                          : '1–4 Shutters'}
+                      </span>
+                    </div>
+
+                    {/* Price Range & Order Now Button */}
+                    <div className="pt-2">
+                      <div className="flex items-baseline justify-between mb-3">
+                        <span className="text-[10px] text-[#7a7166] uppercase font-semibold">
+                          Price Range:
+                        </span>
+                        <span className="text-sm font-serif font-bold text-[#1a3d30]">
+                          {priceRange}
+                        </span>
+                      </div>
+
+                      <Link
+                        href={targetUrl}
+                        onClick={(e) => e.stopPropagation()}
+                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-[#1a1815] group-hover:bg-[#1a3d30] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm group-hover:shadow"
+                      >
+                        <span>Order Now</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
+              );
+            })}
 
-                {/* Card Content Body */}
-                <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
-                  <div className="space-y-1.5">
-                    {/* Category / Dimension Note */}
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-[#b8933f]">
-                      Architectural Glass &amp; Aluminum
-                    </p>
-
-                    {/* Product Title */}
-                    <h3 className="text-sm font-serif font-bold text-[#1a1815] group-hover:text-[#b8933f] transition-colors line-clamp-2">
-                      {product.name}
-                    </h3>
-
-                    {/* Description preview */}
-                    <p className="text-[11px] text-[#7a7166] line-clamp-2 leading-relaxed">
-                      {product.tagline || product.description}
-                    </p>
-                  </div>
-
-                  {/* Spec Quick Chips */}
-                  <div className="pt-2 border-t border-[#e2d9cc]/60 flex flex-wrap gap-1 text-[10px] text-[#3d3833]">
-                    <span className="px-2 py-0.5 rounded bg-white border border-[#e2d9cc]">
-                      Custom Height &amp; Width
-                    </span>
-                    <span className="px-2 py-0.5 rounded bg-white border border-[#e2d9cc]">
-                      1–4 Shutters
-                    </span>
-                  </div>
-
-                  {/* Price Range & Order Now Button */}
-                  <div className="pt-2">
-                    <div className="flex items-baseline justify-between mb-3">
-                      <span className="text-[10px] text-[#7a7166] uppercase font-semibold">
-                        Price Range:
-                      </span>
-                      <span className="text-sm font-serif font-bold text-[#1a3d30]">
-                        {priceRange}
-                      </span>
-                    </div>
-
-                    <Link
-                      href={targetUrl}
-                      onClick={(e) => e.stopPropagation()}
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 bg-[#1a1815] group-hover:bg-[#1a3d30] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all shadow-sm group-hover:shadow"
-                    >
-                      <span>Order Now</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
-                  </div>
+            {/* Special Final Slide: "See All Custom Products" */}
+            <div
+              data-slider-item
+              onClick={() => router.push('/custom-products')}
+              className="w-[280px] sm:w-[320px] lg:w-[calc(25%-18px)] shrink-0 snap-start group cursor-pointer rounded-2xl bg-linear-to-br from-[#1a1815] to-[#26201b] p-6 text-white flex flex-col justify-between border border-[#d4b06a]/30 hover:border-[#d4b06a] hover:shadow-xl transition-all duration-300"
+            >
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#d4b06a]/20 border border-[#d4b06a]/40 flex items-center justify-center text-[#d4b06a] group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <span className="text-[10px] uppercase font-bold tracking-[0.16em] text-[#d4b06a]">
+                    Full Bespoke Collection
+                  </span>
+                  <h3 className="text-lg font-serif font-bold text-white">
+                    Explore All Custom Editions
+                  </h3>
+                  <p className="text-xs text-white/70 leading-relaxed">
+                    Discover our full portfolio of SASO thermal windows, acoustic partitions, motorized skylights, and monumental pivot doors.
+                  </p>
                 </div>
               </div>
-            );
-          })}
+
+              <div className="pt-6">
+                <div className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 bg-linear-to-r from-[#d4b06a] to-[#b8933f] text-[#1a1815] font-bold text-xs uppercase tracking-wider rounded-xl shadow transition-all group-hover:brightness-110">
+                  <span>View All Custom Products</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Slider Progress Bar & Quick Footer Link */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-[#7a7166]">
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <div className="h-1.5 w-36 bg-[#e2d9cc] rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#b8933f] rounded-full transition-all duration-300"
+                style={{ width: `${Math.max(15, scrollProgress)}%` }}
+              />
+            </div>
+            <span className="font-mono text-[11px] text-[#7a7166]">
+              {products.length} Custom Models Available
+            </span>
+          </div>
+
+          <Link
+            href="/custom-products"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1a1815] hover:text-[#b8933f] transition-colors"
+          >
+            <span>Browse All Made-to-Measure Architectural Works</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </section>

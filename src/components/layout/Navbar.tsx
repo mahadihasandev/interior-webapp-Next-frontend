@@ -32,12 +32,14 @@ export function Navbar() {
 
   const navLinks = [
     { name: 'Collection', href: '/shop' },
-    { name: 'Bespoke', href: '/#custom-fitting-studio' },
+    { name: 'Custom Products', href: '/custom-products' },
+    { name: 'Bespoke Studio', href: '/#custom-fitting-studio' },
     { name: 'Services', href: '/consultation' },
   ];
 
   const categoryMenu = [
     { name: 'All Editions', href: '/shop' },
+    { name: 'Custom Windows & Doors (Made-to-Measure)', href: '/custom-products' },
     { name: 'Living Room & Majlis', href: '/shop?category=living-room' },
     { name: 'Bedroom & Suites', href: '/shop?category=bedroom' },
     { name: 'Lighting & Fixtures', href: '/shop?category=lighting' },
@@ -210,6 +212,7 @@ export function Navbar() {
           {[
             { name: 'Home', href: '/' },
             { name: 'Collection', href: '/shop' },
+            { name: 'Custom Products (Made-to-Measure)', href: '/custom-products' },
             { name: 'Bespoke Studio', href: '/#custom-fitting-studio' },
             { name: 'Consultation', href: '/consultation' },
           ].map((link) => (
