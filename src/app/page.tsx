@@ -2,15 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight,
   Sliders,
   Layers,
   Armchair,
-  Sun,
-  Wind,
-  VolumeX,
-  ShieldCheck,
   CheckCircle,
   Sparkles,
   MessageCircle,
@@ -43,24 +40,20 @@ export default function HomePage() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const trustItems = [
-    { icon: <Sun className="w-4 h-4" />, label: '50°C Thermal Break', sub: 'SASO certified barrier' },
-    { icon: <Wind className="w-4 h-4" />, label: 'Hermetic Dust Seal', sub: 'Sandstorm proof' },
-    { icon: <VolumeX className="w-4 h-4" />, label: '38dB Acoustic', sub: 'Majlis privacy glazing' },
-    { icon: <ShieldCheck className="w-4 h-4" />, label: 'White-Glove Delivery', sub: 'Riyadh · Jeddah · Neom' },
-  ];
-
   return (
-    <div className="pb-20 space-y-20 sm:space-y-28">
+    <div className="pb-40">
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#111] min-h-[76vh] flex items-center justify-center">
-        <img
+      <section className="relative overflow-hidden bg-[#111] min-h-[76vh] mb-16 flex items-center justify-center">
+        <Image
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85"
           alt="Saudi Luxury Villa Interior"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-35"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-35"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 py-20 space-y-6 text-center flex flex-col items-center justify-center">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#d4b06a]">
@@ -91,29 +84,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TRUST RIBBON ──────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 -mt-12 sm:-mt-16 relative z-20">
-        <div className="bg-white border border-[#e2d9cc] rounded-2xl p-5 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-5 shadow-sm">
-          {trustItems.map((item) => (
-            <div key={item.label} className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#f3ede4] flex items-center justify-center text-[#1a3d30] shrink-0">
-                {item.icon}
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-[#1a1815]">{item.label}</p>
-                <p className="text-[11px] text-[#7a7166] mt-0.5">{item.sub}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+  
 
       {/* ── NEW FEATURED CUSTOM PRODUCTS CARDS SECTION ────────────────── */}
-      <div id="custom-products-showcase" className="scroll-mt-24">
+      <div id="custom-products-showcase" className="mt-4 scroll-mt-24">
         <HeroCustomProductCardsGrid />
       </div>
 
-      {/* ── SELLER CUSTOM DESIGNS SHOWCASE ─────────────────────────── */}
+      <div className="space-y-20 sm:space-y-28 mt-16 sm:mt-20">
+        {/* ── CUSTOM DESIGNS & STUDIO GROUP ─────────────────────────── */}
+        <div className="space-y-6 sm:space-y-8">
+          {/* ── SELLER CUSTOM DESIGNS SHOWCASE ─────────────────────────── */}
       <section id="custom-designs" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-4">
         <div className="pb-1">
           <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#b8933f] mb-1">
@@ -207,6 +188,7 @@ export default function HomePage() {
           {studioTab === 'fitting' ? <CustomFittingVisualizer /> : <CustomSofaVisualizer />}
         </div>
       </section>
+        </div>
 
       {/* ── MATERIAL SHOWCASE ─────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10">
@@ -264,10 +246,12 @@ export default function HomePage() {
                 href={`/shop?category=${cat.slug}`}
                 className="group relative aspect-[3/4] rounded-xl overflow-hidden bg-[#f3ede4] block"
               >
-                <img
+                <Image
                   src={cat.image_url || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80'}
                   alt={cat.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out brightness-90"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out brightness-90"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 <div className="absolute bottom-0 inset-x-0 p-3">
@@ -332,11 +316,13 @@ export default function HomePage() {
             </div>
 
             {/* Image side */}
-            <div className="relative min-h-64 lg:min-h-0">
-              <img
+            <div className="relative min-h-72 lg:min-h-full">
+              <Image
                 src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"
                 alt="Interior design consultation"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 border border-[#e2d9cc]">
@@ -353,6 +339,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
