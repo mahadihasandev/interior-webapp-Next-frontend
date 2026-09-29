@@ -68,7 +68,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-6 translate-x-[20px]">
             <Link
               href="/"
               className={`text-sm transition-colors whitespace-nowrap ${
