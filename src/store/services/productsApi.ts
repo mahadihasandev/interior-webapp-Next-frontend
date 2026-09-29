@@ -24,6 +24,7 @@ export const productsApi = baseApi.injectEndpoints({
         if (filters?.min_price) params.append('min_price', filters.min_price.toString());
         if (filters?.max_price) params.append('max_price', filters.max_price.toString());
         if (filters?.featured) params.append('featured', 'true');
+        if (filters?.product_type) params.append('product_type', filters.product_type);
         if (filters?.page) params.append('page', filters.page.toString());
 
         const queryString = params.toString();
@@ -36,6 +37,12 @@ export const productsApi = baseApi.injectEndpoints({
               { type: 'Product', id: 'LIST' },
             ]
           : [{ type: 'Product', id: 'LIST' }],
+    }),
+
+    getCustomFitProducts: builder.query<Product[], number | void>({
+      query: (limit = 12) => `/products?product_type=custom_fit&per_page=${limit}`,
+      transformResponse: (response: ApiResponse<Product[]>) => response.data,
+      providesTags: [{ type: 'Product', id: 'CUSTOM_FIT' }],
     }),
 
     getFeaturedProducts: builder.query<Product[], number | void>({
@@ -54,6 +61,15 @@ export const productsApi = baseApi.injectEndpoints({
       query: () => '/villa-designs',
       providesTags: [{ type: 'Product', id: 'VILLA_DESIGNS' }],
     }),
+
+    submitCustomOrder: builder.mutation<ApiResponse<{ id: number; order_number: string }>, Record<string, unknown>>({
+      query: (body) => ({
+        url: '/custom-orders',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Order', id: 'LIST' }],
+    }),
   }),
   overrideExisting: true,
 });
@@ -61,7 +77,9 @@ export const productsApi = baseApi.injectEndpoints({
 export const {
   useGetCategoriesQuery,
   useGetProductsQuery,
+  useGetCustomFitProductsQuery,
   useGetFeaturedProductsQuery,
   useGetProductBySlugQuery,
   useGetVillaDesignsQuery,
+  useSubmitCustomOrderMutation,
 } = productsApi;

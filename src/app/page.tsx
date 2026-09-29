@@ -22,6 +22,10 @@ import { CustomSofaVisualizer } from '@/components/custom/CustomSofaVisualizer';
 import { CustomSampleGallery, CustomSample } from '@/components/custom/CustomSampleGallery';
 import { CustomOrderShowcase } from '@/components/custom/CustomOrderShowcase';
 import { SaudiMaterialShowcase } from '@/components/custom/SaudiMaterialShowcase';
+import {
+  HeroCustomProductSection,
+  HeroCustomProductCardsGrid,
+} from '@/components/custom/HeroCustomProductSection';
 import { useAppDispatch } from '@/store/hooks';
 import { openConsultationModal } from '@/store/slices/uiSlice';
 
@@ -50,46 +54,77 @@ export default function HomePage() {
   return (
     <div className="pb-20 space-y-20 sm:space-y-28">
 
-      {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#111] min-h-[76vh] flex items-center">
+      {/* ── HERO BANNER WITH CUSTOM PRODUCT SECTION ──────────────────── */}
+      <section className="relative overflow-hidden bg-[#111] min-h-[85vh] flex items-center">
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85"
           alt="Saudi Luxury Villa Interior"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-35"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-30"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70" />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 py-20 space-y-6">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#d4b06a]">
-            L&apos;Atelier Architectural Studio · الرياض
-          </p>
-          <h1 className="text-4xl sm:text-6xl font-serif font-bold text-white leading-tight max-w-3xl">
-            Crafted in Form,<br />
-            <span className="text-[#d4b06a]">Built in Material</span>
-          </h1>
-          <p className="text-sm sm:text-base text-white/70 max-w-xl leading-relaxed">
-            Bespoke architectural windows, acoustic privacy partitions, and modular Majlis seating — engineered for Saudi villas and royal salons.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="/#custom-designs"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1a1815] text-sm font-semibold rounded-full hover:bg-[#f3ede4] transition-colors"
-            >
-              Design Studio
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white text-sm font-semibold rounded-full border border-white/20 hover:bg-white/15 transition-colors"
-            >
-              Browse Collection
-            </Link>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 py-16 sm:py-24 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left Headline & Content (6 Cols) */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#d4b06a] text-xs font-semibold tracking-[0.2em] uppercase">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>L&apos;Atelier Architectural Studio · الرياض</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-6xl font-serif font-bold text-white leading-[1.1] max-w-2xl">
+                Crafted in Form,<br />
+                <span className="text-[#d4b06a]">Built in Material</span>
+              </h1>
+
+              <p className="text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
+                Bespoke made-to-measure architectural windows, acoustic privacy partitions, and modular Majlis seating — engineered for Saudi villas and royal salons with 50°C thermal protection.
+              </p>
+
+              {/* Quick links & assurances */}
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Link
+                  href="/#custom-products-showcase"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-[#d4b06a] to-[#b8933f] hover:from-[#e0c283] hover:to-[#c8a14b] text-[#1a1815] text-sm font-bold rounded-full shadow-lg transition-all"
+                >
+                  <span>Explore Made-to-Measure</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/10 text-white text-sm font-semibold rounded-full border border-white/20 hover:bg-white/15 transition-colors"
+                >
+                  Ready-Made Editions
+                </Link>
+              </div>
+
+              {/* Key certifications */}
+              <div className="pt-4 border-t border-white/10 flex items-center gap-6 text-xs text-white/70">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[#d4b06a]" />
+                  <span>SASO Certified</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Sun className="w-4 h-4 text-[#d4b06a]" />
+                  <span>50°C Thermal Break</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Wind className="w-4 h-4 text-[#d4b06a]" />
+                  <span>Sandstorm Sealed</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: NEW HERO CUSTOM PRODUCT CARD (6 Cols) */}
+            <div className="lg:col-span-6">
+              <HeroCustomProductSection />
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── TRUST RIBBON ──────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 -mt-12 sm:-mt-16 relative z-20">
+      <section className="max-w-6xl mx-auto px-6 -mt-10 sm:-mt-14 relative z-20">
         <div className="bg-white border border-[#e2d9cc] rounded-2xl p-5 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-5 shadow-sm">
           {trustItems.map((item) => (
             <div key={item.label} className="flex items-start gap-3">
@@ -104,6 +139,11 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* ── NEW FEATURED CUSTOM PRODUCTS CARDS SECTION ────────────────── */}
+      <div id="custom-products-showcase" className="scroll-mt-24">
+        <HeroCustomProductCardsGrid />
+      </div>
 
       {/* ── SELLER CUSTOM DESIGNS SHOWCASE ─────────────────────────── */}
       <section id="custom-designs" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-4">

@@ -9,8 +9,62 @@ export interface Category {
   created_at?: string;
 }
 
+export interface ShuttersOption {
+  id: string;
+  name: string;
+  description: string;
+  price_delta: number;
+}
+
+export interface AluminumOption {
+  id: string;
+  name: string;
+  badge?: string;
+  thickness?: string;
+  price_delta: number;
+}
+
+export interface GlassOption {
+  id: string;
+  name: string;
+  tint?: string;
+  specs?: string;
+  price_delta: number;
+}
+
+export interface ColorOption {
+  id: string;
+  name: string;
+  hex: string;
+}
+
+export interface AddonOption {
+  id: string;
+  name: string;
+  price: number;
+  selected?: boolean;
+}
+
+export interface CustomizationOptions {
+  min_price?: number;
+  max_price?: number;
+  default_height?: number;
+  default_width?: number;
+  min_height?: number;
+  max_height?: number;
+  min_width?: number;
+  max_width?: number;
+  measurement_unit?: 'cm' | 'mm' | 'inch' | string;
+  shutters_options?: ShuttersOption[];
+  aluminum_options?: AluminumOption[];
+  glass_options?: GlassOption[];
+  color_options?: ColorOption[];
+  addons?: AddonOption[];
+}
+
 export interface Product {
   id: number;
+  vendor_id?: number | null;
   category_id: number;
   category?: Category;
   name: string;
@@ -19,6 +73,11 @@ export interface Product {
   description: string;
   price: number;
   compare_at_price?: number | null;
+  product_type?: 'ready_made' | 'custom_fit';
+  customization_options?: CustomizationOptions;
+  price_min?: number;
+  price_max?: number;
+  price_range_formatted?: string;
   dimensions?: string;
   materials?: string;
   color?: string;
@@ -136,6 +195,7 @@ export interface ProductFilters {
   category?: string;
   search?: string;
   featured?: boolean;
+  product_type?: string;
   sort?: 'latest' | 'price_asc' | 'price_desc' | 'rating' | 'popular';
   min_price?: number;
   max_price?: number;
