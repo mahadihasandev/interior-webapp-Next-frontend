@@ -54,7 +54,7 @@ export default function HomePage() {
     <div className="pb-20 space-y-20 sm:space-y-28">
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-[#111] min-h-[76vh] flex items-center">
+      <section className="relative overflow-hidden bg-[#111] min-h-[76vh] flex items-center justify-center">
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85"
           alt="Saudi Luxury Villa Interior"
@@ -62,18 +62,18 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 py-20 space-y-6">
+        <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 py-20 space-y-6 text-center flex flex-col items-center justify-center">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#d4b06a]">
             L&apos;Atelier Architectural Studio · الرياض
           </p>
-          <h1 className="text-4xl sm:text-6xl font-serif font-bold text-white leading-tight max-w-3xl">
+          <h1 className="text-4xl sm:text-6xl font-serif font-bold text-white leading-tight max-w-3xl text-center">
             Crafted in Form,<br />
             <span className="text-[#d4b06a]">Built in Material</span>
           </h1>
-          <p className="text-sm sm:text-base text-white/70 max-w-xl leading-relaxed">
+          <p className="text-sm sm:text-base text-white/70 max-w-xl leading-relaxed text-center mx-auto">
             Bespoke architectural windows, acoustic privacy partitions, and modular Majlis seating — engineered for Saudi villas and royal salons.
           </p>
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex flex-wrap justify-center items-center gap-3 pt-2">
             <Link
               href="/#custom-designs"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1a1815] text-sm font-semibold rounded-full hover:bg-[#f3ede4] transition-colors"
