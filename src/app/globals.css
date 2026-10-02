@@ -21,10 +21,11 @@
   body {
     background-color: var(--color-sand-50);
     color: var(--color-ink);
-    font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: var(--font-inter), var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+  .font-serif { font-family: var(--font-playfair), 'Playfair Display', Georgia, serif; }
+  .font-arabic, .ar { font-family: var(--font-amiri), 'Amiri', 'Traditional Arabic', serif; }
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────── */
@@ -82,4 +83,4 @@
 .animate-fade-in-up { animation: fadeUp 0.45s ease-out both; }
 
 /* ── RTL Arabic support ─────────────────────────────────────────────── */
-.ar { font-family: 'Amiri', 'Traditional Arabic', serif; direction: rtl; text-align: right; }
+.ar { font-family: var(--font-amiri), 'Amiri', 'Traditional Arabic', serif; direction: rtl; text-align: right; }

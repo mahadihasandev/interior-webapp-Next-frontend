@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { inter, playfair, plusJakarta, amiri } from './fonts';
 import { Providers } from '@/components/layout/Providers';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -30,15 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="en"
+      className={`light ${inter.variable} ${playfair.variable} ${plusJakarta.variable} ${amiri.variable}`}
+    >
       <body className="min-h-screen flex flex-col bg-[#faf8f5] text-stone-900 antialiased selection:bg-[#c5a059]/20 selection:text-stone-900">
         <Providers>
           <Navbar />
