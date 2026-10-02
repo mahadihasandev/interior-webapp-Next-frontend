@@ -12,6 +12,7 @@ import {
 import { useCreateOrderMutation } from '@/store/services/consultationApi';
 import { DemoPaymentGateway, PaymentSuccessDetails } from './DemoPaymentGateway';
 import { OrderTrackingModal } from './OrderTrackingModal';
+import { resolveImageUrl, FALLBACK_PRODUCT_IMAGE } from '@/utils/imageUrl';
 
 export function CartDrawer() {
   const dispatch = useAppDispatch();
@@ -161,8 +162,11 @@ export function CartDrawer() {
                         <div className="relative w-20 h-20 bg-stone-200 rounded-xl overflow-hidden shrink-0">
                           {product.image_url ? (
                             <img
-                              src={product.image_url}
+                              src={resolveImageUrl(product.image_url)}
                               alt={product.name}
+                              onError={(e) => {
+                                (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                              }}
                               className="w-full h-full object-cover"
                             />
                           ) : (

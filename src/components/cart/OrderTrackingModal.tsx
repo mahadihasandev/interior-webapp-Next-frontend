@@ -17,6 +17,7 @@ import { useGetOrderQuery, useFakePayOrderMutation } from '@/store/services/cons
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { closeTrackingModal } from '@/store/slices/uiSlice';
 import { OrderItemDetail } from '@/types';
+import { resolveImageUrl, FALLBACK_PRODUCT_IMAGE } from '@/utils/imageUrl';
 
 interface OrderTrackingModalProps {
   initialOrderNumber?: string | null;
@@ -296,8 +297,11 @@ export function OrderTrackingModal({
                           <div className="w-16 h-16 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0 overflow-hidden">
                             {item.product?.image_url ? (
                               <img
-                                src={item.product.image_url}
+                                src={resolveImageUrl(item.product.image_url)}
                                 alt={item.product_name}
+                                onError={(e) => {
+                                  (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                                }}
                                 className="w-full h-full object-cover"
                               />
                             ) : isCustom ? (

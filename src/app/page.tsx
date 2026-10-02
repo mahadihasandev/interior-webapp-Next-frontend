@@ -17,7 +17,7 @@ import { ProductGrid } from '@/components/shop/ProductGrid';
 import { CustomFittingVisualizer } from '@/components/custom/CustomFittingVisualizer';
 import { CustomSofaVisualizer } from '@/components/custom/CustomSofaVisualizer';
 import { CustomSampleGallery, CustomSample } from '@/components/custom/CustomSampleGallery';
-import { CustomOrderShowcase } from '@/components/custom/CustomOrderShowcase';
+import { ReadyMadeTwoRowSection } from '@/components/shop/ReadyMadeTwoRowSection';
 import { SaudiMaterialShowcase } from '@/components/custom/SaudiMaterialShowcase';
 import {
   HeroCustomProductCardsGrid,
@@ -27,7 +27,6 @@ import { openConsultationModal } from '@/store/slices/uiSlice';
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
-  const { data: featuredProducts, isLoading: isFeaturedLoading } = useGetFeaturedProductsQuery(6);
   const { data: categories } = useGetCategoriesQuery();
 
   const [studioTab, setStudioTab] = useState<'fitting' | 'sofa'>('fitting');
@@ -68,10 +67,10 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap justify-center items-center gap-3 pt-2">
             <Link
-              href="/#custom-designs"
+              href="/#ready-made-collection"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1a1815] text-sm font-semibold rounded-full hover:bg-[#f3ede4] transition-colors"
             >
-              Design Studio
+              Ready-Made Editions
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
@@ -92,133 +91,90 @@ export default function HomePage() {
       </div>
 
       <div className="space-y-20 sm:space-y-28 mt-16 sm:mt-20">
-        {/* ── CUSTOM DESIGNS & STUDIO GROUP ─────────────────────────── */}
-        <div className="space-y-6 sm:space-y-8">
-          {/* ── SELLER CUSTOM DESIGNS SHOWCASE ─────────────────────────── */}
-      <section id="custom-designs" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-4">
-        <div className="pb-1">
-          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#b8933f] mb-1">
-            Seller&apos;s Custom Designs · تصاميم مخصصة من البائع
-          </p>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1a1815]">
-              Pick a Design — Order or Call the Seller
-            </h2>
-            <p className="text-sm text-[#7a7166] max-w-md">
-              Real installations uploaded by our seller. Select one, then customise dimensions or contact us directly.
-            </p>
-          </div>
-        </div>
-        <CustomOrderShowcase onStartOrder={handleSelectSample} />
-      </section>
+        {/* ── BEAUTIFUL 2-ROW READY-MADE PRODUCTS SHOWCASE ────────────── */}
+        <ReadyMadeTwoRowSection />
 
-      {/* ── SAMPLE GALLERY + STUDIO ───────────────────────────────────── */}
-      <section id="custom-fitting-studio" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-10">
+        {/* ── SAMPLE GALLERY + STUDIO ───────────────────────────────────── */}
+        <section id="custom-fitting-studio" className="max-w-7xl mx-auto px-6 sm:px-10 scroll-mt-24 space-y-10">
 
-        {/* Section header */}
-        <div className="border-b border-[#e2d9cc] pb-4">
-          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#b8933f] mb-1">
-            Bespoke Studio · استوديو التخصيص
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1a1815]">
-            Browse All Samples &amp; Customise
-          </h2>
-          <p className="text-sm text-[#7a7166] mt-1 max-w-2xl">
-            Select a real Saudi villa installation below to pre-load its specs into the live simulator.
-          </p>
-        </div>
-
-        <CustomSampleGallery
-          onSelectSample={handleSelectSample}
-          selectedSampleId={selectedSample?.id}
-        />
-
-        {/* Studio Canvas */}
-        <div id="custom-studio-canvas" className="scroll-mt-24 space-y-5 pt-4 border-t border-[#e2d9cc]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.14em] uppercase text-[#b8933f] mb-1">
-                <Sliders className="w-3.5 h-3.5" />
-                Live Configurator
-              </div>
-              <h2 className="text-xl font-serif font-bold text-[#1a1815]">
-                Fine-Tune Colours, Materials &amp; Dimensions
-              </h2>
-            </div>
-
-            {/* Tab switcher */}
-            <div className="flex items-center p-1 bg-[#f3ede4] border border-[#e2d9cc] rounded-xl gap-1 self-start">
-              <button
-                type="button"
-                onClick={() => setStudioTab('fitting')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  studioTab === 'fitting'
-                    ? 'bg-white text-[#1a1815] shadow-sm border border-[#e2d9cc]'
-                    : 'text-[#7a7166] hover:text-[#1a1815]'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                Windows &amp; Fittings
-              </button>
-              <button
-                type="button"
-                onClick={() => setStudioTab('sofa')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                  studioTab === 'sofa'
-                    ? 'bg-white text-[#1a1815] shadow-sm border border-[#e2d9cc]'
-                    : 'text-[#7a7166] hover:text-[#1a1815]'
-                }`}
-              >
-                <Armchair className="w-3.5 h-3.5" />
-                Majlis &amp; Sofas
-              </button>
-            </div>
-          </div>
-
-          {/* Loaded preset banner */}
-          {selectedSample && (
-            <div className="flex items-center gap-2.5 px-4 py-3 bg-[#edf4f0] border border-[#1a3d30]/20 rounded-xl text-xs">
-              <span className="w-2 h-2 rounded-full bg-[#1a3d30] animate-pulse shrink-0" />
-              <span className="font-semibold text-[#1a3d30]">Loaded:</span>
-              <span className="text-[#1a3d30]">{selectedSample.titleEn}</span>
-              <span className="ml-auto text-[#7a7166] hidden sm:inline">Adjust any option below.</span>
-            </div>
-          )}
-
-          {studioTab === 'fitting' ? <CustomFittingVisualizer /> : <CustomSofaVisualizer />}
-        </div>
-      </section>
-        </div>
-
-      {/* ── MATERIAL SHOWCASE ─────────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10">
-        <SaudiMaterialShowcase />
-      </section>
-
-      {/* ── READY-MADE COLLECTION ─────────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-[#e2d9cc]">
-          <div>
+          {/* Section header */}
+          <div className="border-b border-[#e2d9cc] pb-4">
             <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#b8933f] mb-1">
-              Ready-Made Editions
+              Bespoke Studio · استوديو التخصيص
             </p>
-            <h2 className="text-2xl font-serif font-bold text-[#1a1815]">
-              Curated Furniture &amp; Lighting
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#1a1815]">
+              Browse All Samples &amp; Customise
             </h2>
-            <p className="text-sm text-[#7a7166] mt-1">
-              Limited seasonal batches — sustainably harvested hardwoods and hand-spun brass.
+            <p className="text-sm text-[#7a7166] mt-1 max-w-2xl">
+              Select a real Saudi villa installation below to pre-load its specs into the live simulator.
             </p>
           </div>
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1a1815] hover:text-[#b8933f] transition-colors shrink-0"
-          >
-            Full Catalog
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-        <ProductGrid products={featuredProducts} isLoading={isFeaturedLoading} />
-      </section>
+
+          <CustomSampleGallery
+            onSelectSample={handleSelectSample}
+            selectedSampleId={selectedSample?.id}
+          />
+
+          {/* Studio Canvas */}
+          <div id="custom-studio-canvas" className="scroll-mt-24 space-y-5 pt-4 border-t border-[#e2d9cc]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.14em] uppercase text-[#b8933f] mb-1">
+                  <Sliders className="w-3.5 h-3.5" />
+                  Live Configurator
+                </div>
+                <h2 className="text-xl font-serif font-bold text-[#1a1815]">
+                  Fine-Tune Colours, Materials &amp; Dimensions
+                </h2>
+              </div>
+
+              {/* Tab switcher */}
+              <div className="flex items-center p-1 bg-[#f3ede4] border border-[#e2d9cc] rounded-xl gap-1 self-start">
+                <button
+                  type="button"
+                  onClick={() => setStudioTab('fitting')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    studioTab === 'fitting'
+                      ? 'bg-white text-[#1a1815] shadow-sm border border-[#e2d9cc]'
+                      : 'text-[#7a7166] hover:text-[#1a1815]'
+                  }`}
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  Windows &amp; Fittings
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStudioTab('sofa')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                    studioTab === 'sofa'
+                      ? 'bg-white text-[#1a1815] shadow-sm border border-[#e2d9cc]'
+                      : 'text-[#7a7166] hover:text-[#1a1815]'
+                  }`}
+                >
+                  <Armchair className="w-3.5 h-3.5" />
+                  Majlis &amp; Sofas
+                </button>
+              </div>
+            </div>
+
+            {/* Loaded preset banner */}
+            {selectedSample && (
+              <div className="flex items-center gap-2.5 px-4 py-3 bg-[#edf4f0] border border-[#1a3d30]/20 rounded-xl text-xs">
+                <span className="w-2 h-2 rounded-full bg-[#1a3d30] animate-pulse shrink-0" />
+                <span className="font-semibold text-[#1a3d30]">Loaded:</span>
+                <span className="text-[#1a3d30]">{selectedSample.titleEn}</span>
+                <span className="ml-auto text-[#7a7166] hidden sm:inline">Adjust any option below.</span>
+              </div>
+            )}
+
+            {studioTab === 'fitting' ? <CustomFittingVisualizer /> : <CustomSofaVisualizer />}
+          </div>
+        </section>
+
+        {/* ── MATERIAL SHOWCASE ─────────────────────────────────────────── */}
+        <section className="max-w-7xl mx-auto px-6 sm:px-10">
+          <SaudiMaterialShowcase />
+        </section>
 
       {/* ── CATEGORIES ────────────────────────────────────────────────── */}
       {categories && categories.length > 0 && (

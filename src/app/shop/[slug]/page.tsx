@@ -22,6 +22,7 @@ import { useAppDispatch } from '@/store/hooks';
 import { addToCart, setDrawerOpen } from '@/store/slices/cartSlice';
 import { openConsultationModal } from '@/store/slices/uiSlice';
 import { ProductCard } from '@/components/shop/ProductCard';
+import { resolveImageUrl, FALLBACK_PRODUCT_IMAGE } from '@/utils/imageUrl';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -73,8 +74,9 @@ export default function ProductDetailPage() {
     );
   }
 
-  const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image_url];
-  const currentImage = gallery[selectedImageIndex] || product.image_url;
+  const rawGallery = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image_url];
+  const gallery = rawGallery.map((url) => resolveImageUrl(url));
+  const currentImage = gallery[selectedImageIndex] || resolveImageUrl(product.image_url);
 
   const handleAddToCart = () => {
     dispatch(addToCart({ product, quantity }));
@@ -123,6 +125,9 @@ export default function ProductDetailPage() {
               <img
                 src={currentImage}
                 alt={product.name}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                }}
                 className="w-full h-full object-cover object-center transition-all duration-300"
               />
 
@@ -146,7 +151,14 @@ export default function ProductDetailPage() {
                         : 'border-stone-200 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img src={imgUrl} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={imgUrl}
+                      alt=""
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                      }}
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>

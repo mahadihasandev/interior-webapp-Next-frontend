@@ -20,17 +20,8 @@ import {
 } from 'lucide-react';
 import { Product } from '@/types';
 import { useGetCustomFitProductsQuery } from '@/store/services/productsApi';
-
-const BACKEND_URL = (
-  process.env.NEXT_PUBLIC_API_URL ?? 'https://interior-webapp-php-backend.onrender.com/api'
-).replace(/\/api\/?$/, '');
-
-export function resolveImageUrl(url?: string): string {
-  if (!url) return '';
-  if (url.startsWith('/storage/')) return `${BACKEND_URL}${url}`;
-  if (url.startsWith('storage/')) return `${BACKEND_URL}/${url}`;
-  return url;
-}
+import { resolveImageUrl, FALLBACK_PRODUCT_IMAGE } from '@/utils/imageUrl';
+export { resolveImageUrl };
 
 export const FALLBACK_CUSTOM_PRODUCTS: Product[] = [
   {
@@ -643,6 +634,9 @@ export function HeroCustomProductSection() {
               <img
                 src={resolveImageUrl(activeProduct.image_url)}
                 alt={activeProduct.name}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                }}
                 className={`w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out ${
                   isAnimating ? 'opacity-40 scale-95' : 'opacity-100 scale-100'
                 }`}
@@ -936,6 +930,9 @@ export function HeroCustomProductCardsGrid() {
                     <img
                       src={resolveImageUrl(product.image_url)}
                       alt={product.name}
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
