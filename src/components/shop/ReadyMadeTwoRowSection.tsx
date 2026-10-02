@@ -258,37 +258,28 @@ export function ReadyMadeTwoRowSection() {
   // Query up to 8 featured products from backend
   const { data: apiProducts, isLoading } = useGetFeaturedProductsQuery(8);
 
-  // Combine or fallback to ensure exactly 8 high quality ready-made products
+  // Use real ready-made products from backend API
   const allProducts: Product[] = useMemo(() => {
-    if (apiProducts && apiProducts.length >= 8) {
-      return apiProducts.slice(0, 8);
+    if (apiProducts !== undefined) {
+      return apiProducts;
     }
-    if (apiProducts && apiProducts.length > 0) {
-      // Merge apiProducts with remaining fallback products to make at least 8
-      const apiSlugs = new Set(apiProducts.map((p) => p.slug));
-      const remainingFallbacks = FALLBACK_READY_MADE_PRODUCTS.filter(
-        (p) => !apiSlugs.has(p.slug)
-      );
-      return [...apiProducts, ...remainingFallbacks].slice(0, 8);
-    }
-    return FALLBACK_READY_MADE_PRODUCTS;
+    return [];
   }, [apiProducts]);
 
   // Filter by category if selected
   const displayedProducts = useMemo(() => {
     if (selectedCategory === 'all') return allProducts.slice(0, 8);
 
-    const filtered = allProducts.filter((p) => {
-      const catSlug = p.category?.slug?.toLowerCase() || '';
-      const catName = p.category?.name?.toLowerCase() || '';
-      return (
-        catSlug.includes(selectedCategory.toLowerCase()) ||
-        catName.includes(selectedCategory.toLowerCase())
-      );
-    });
-
-    // If specific filter returned items, return them; otherwise fallback to all so it never looks broken
-    return filtered.length > 0 ? filtered : allProducts.slice(0, 8);
+    return allProducts
+      .filter((p) => {
+        const catSlug = p.category?.slug?.toLowerCase() || '';
+        const catName = p.category?.name?.toLowerCase() || '';
+        return (
+          catSlug.includes(selectedCategory.toLowerCase()) ||
+          catName.includes(selectedCategory.toLowerCase())
+        );
+      })
+      .slice(0, 8);
   }, [allProducts, selectedCategory]);
 
   return (
@@ -350,11 +341,25 @@ export function ReadyMadeTwoRowSection() {
       </div>
 
       {/* ── 2-ROW RESPONSIVE GRID (4 COLUMNS × 2 ROWS = 8 ITEMS) ─────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {displayedProducts.map((product) => (
-          <ProductCard key={product.id || product.slug} product={product} />
-        ))}
-      </div>
+      {displayedProducts.length === 0 ? (
+        <div className="py-12 px-6 text-center rounded-2xl bg-[#faf8f5] border border-dashed border-[#e2d9cc] space-y-3">
+          <div className="w-12 h-12 rounded-full bg-[#b8933f]/10 text-[#b8933f] flex items-center justify-center mx-auto">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <h3 className="text-base font-serif font-bold text-[#1a1815]">
+            No Ready-Made Products Available
+          </h3>
+          <p className="text-xs text-[#7a7166] max-w-md mx-auto leading-relaxed">
+            All ready-made products in this category have been removed or are out of stock. Add new inventory from the seller dashboard to display them here.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {displayedProducts.map((product) => (
+            <ProductCard key={product.id || product.slug} product={product} />
+          ))}
+        </div>
+      )}
 
       {/* ── BOTTOM BANNER / WHITE GLOVE COURIER PROMISE ─────────────────── */}
       <div className="p-4 sm:p-5 rounded-2xl bg-[#faf7f2] border border-[#e8dfd3] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6e665b]">

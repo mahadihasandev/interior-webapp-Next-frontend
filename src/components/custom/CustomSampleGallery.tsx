@@ -245,27 +245,19 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [previewSample, setPreviewSample] = useState<CustomSample | null>(null);
 
-  const { data: apiResponse } = useGetVillaDesignsQuery();
+  const { data: apiResponse, isLoading } = useGetVillaDesignsQuery();
 
   const samples: CustomSample[] = useMemo(() => {
-    if (apiResponse?.data && apiResponse.data.length > 0) return apiResponse.data;
-    return SAUDI_CUSTOM_SAMPLES;
+    if (apiResponse?.data !== undefined) return apiResponse.data;
+    return [];
   }, [apiResponse]);
 
-  const defaultCategoryTabs = [
-    { id: 'all',               nameEn: 'All Designs',           nameAr: 'الكل' },
-    { id: 'majlis',            nameEn: 'Royal Majlis & Salons', nameAr: 'المجالس' },
-    { id: 'thermal_window',    nameEn: '50°C Thermal Windows',  nameAr: 'نوافذ حرارية' },
-    { id: 'privacy_partition', nameEn: 'Privacy & Screens',     nameAr: 'فواصل الخصوصية' },
-    { id: 'family_living',     nameEn: 'Family Lounges',        nameAr: 'صالات العائلة' },
-  ];
-
   const categories = useMemo(() => {
-    if (!apiResponse?.categories || apiResponse.categories.length === 0) return defaultCategoryTabs;
-    const catMap = new Map<string, { id: string; nameEn: string; nameAr: string }>();
-    defaultCategoryTabs.forEach((c) => catMap.set(c.id, c));
-    apiResponse.categories.forEach((c) => { if (!catMap.has(c.id)) catMap.set(c.id, c); });
-    return Array.from(catMap.values());
+    const list = apiResponse?.categories || [];
+    return [
+      { id: 'all', nameEn: 'All Designs', nameAr: 'الكل' },
+      ...list,
+    ];
   }, [apiResponse]);
 
   const filteredSamples = samples.filter((s) =>
@@ -293,7 +285,18 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
       </div>
 
       {/* Sample cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {filteredSamples.length === 0 ? (
+        <div className="py-12 px-6 text-center rounded-2xl bg-[#faf8f5] border border-dashed border-[#e2d9cc] space-y-3">
+          <Sliders className="w-8 h-8 text-[#b8933f] mx-auto opacity-60" />
+          <h3 className="text-base font-serif font-bold text-[#1a1815]">
+            No Villa Designs Published
+          </h3>
+          <p className="text-xs text-[#7a7166] max-w-md mx-auto leading-relaxed">
+            All showcase villa designs have been removed or updated in the seller dashboard. Add new villa designs to display them here.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredSamples.map((sample) => {
           const isSelected = selectedSampleId === sample.id;
           return (
@@ -382,7 +385,8 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
 
       {/* Detail modal */}
       {previewSample && (

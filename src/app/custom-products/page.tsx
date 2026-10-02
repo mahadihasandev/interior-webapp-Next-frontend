@@ -42,8 +42,8 @@ export default function CustomProductsPage() {
   const [sortBy, setSortBy] = useState<'featured' | 'price_asc' | 'price_desc' | 'rating'>('featured');
 
   const allProducts: Product[] = useMemo(() => {
-    if (apiProducts && apiProducts.length > 0) return apiProducts;
-    return FALLBACK_CUSTOM_PRODUCTS;
+    if (apiProducts !== undefined) return apiProducts;
+    return [];
   }, [apiProducts]);
 
   const filteredProducts = useMemo(() => {
@@ -269,20 +269,34 @@ export default function CustomProductsPage() {
         {filteredProducts.length === 0 ? (
           <div className="bg-white rounded-3xl border border-[#e2d9cc] p-12 text-center space-y-4 max-w-lg mx-auto">
             <HelpCircle className="w-12 h-12 text-[#b8933f] mx-auto opacity-70" />
-            <h3 className="text-lg font-serif font-bold text-[#1a1815]">No custom products found</h3>
+            <h3 className="text-lg font-serif font-bold text-[#1a1815]">
+              {searchTerm || selectedCategory !== 'all' ? 'No matching custom products' : 'No custom products available'}
+            </h3>
             <p className="text-xs text-[#7a7166]">
-              We couldn&apos;t find any made-to-measure products matching &quot;{searchTerm}&quot;. Try resetting your filters.
+              {searchTerm || selectedCategory !== 'all'
+                ? `We couldn't find any made-to-measure products matching your filters. Try resetting them.`
+                : 'All custom architectural products deleted from the catalog have been removed. Add new products in the dashboard to publish them here.'}
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedCategory('all');
-              }}
-              className="px-5 py-2 rounded-xl bg-[#1a1815] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#b8933f] transition-colors"
-            >
-              Reset All Filters
-            </button>
+            {searchTerm || selectedCategory !== 'all' ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('all');
+                }}
+                className="px-5 py-2 rounded-xl bg-[#1a1815] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#b8933f] transition-colors"
+              >
+                Reset All Filters
+              </button>
+            ) : (
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1815] text-[#d4b06a] text-xs font-bold uppercase tracking-wider hover:bg-[#b8933f] hover:text-[#1a1815] transition-colors"
+              >
+                <span>Return to Homepage</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

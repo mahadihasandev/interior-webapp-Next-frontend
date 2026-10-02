@@ -82,12 +82,11 @@ export function CartDrawer() {
       setPaymentDetails(details);
       setCheckoutStep('success');
       dispatch(clearCart());
-    } catch {
-      const mockOrderNo = 'INT-' + Math.random().toString(36).substring(2, 9).toUpperCase();
-      setOrderNumber(mockOrderNo);
-      setPaymentDetails(details);
-      setCheckoutStep('success');
-      dispatch(clearCart());
+    } catch (err: unknown) {
+      const errorMsg =
+        (err as { data?: { message?: string } })?.data?.message ||
+        'Unable to place order with backend. Please check your network or try again.';
+      alert(errorMsg);
     }
   };
 

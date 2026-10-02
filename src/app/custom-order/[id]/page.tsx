@@ -46,14 +46,14 @@ export default function CustomProductDetailPage() {
   const idOrSlug = (params?.id as string) || (params?.slug as string) || '';
 
   // Fetch product from API
-  const { data: singleProduct } = useGetProductBySlugQuery(idOrSlug, {
+  const { data: singleProduct, isLoading: isSingleLoading } = useGetProductBySlugQuery(idOrSlug, {
     skip: !idOrSlug,
   });
-  const { data: customProducts } = useGetCustomFitProductsQuery();
+  const { data: customProducts, isLoading: isCustomLoading } = useGetCustomFitProductsQuery();
   const [submitCustomOrder, { isLoading: isMutationLoading }] = useSubmitCustomOrderMutation();
 
-  // Find matching product or fallback
-  const product: Product = useMemo(() => {
+  // Find matching product
+  const matchedProduct: Product | undefined = useMemo(() => {
     if (singleProduct) return singleProduct;
     if (customProducts && customProducts.length > 0) {
       const match = customProducts.find(
@@ -61,13 +61,12 @@ export default function CustomProductDetailPage() {
       );
       if (match) return match;
     }
-    const fallbackMatch = FALLBACK_CUSTOM_PRODUCTS.find(
-      (p) => p.slug === idOrSlug || p.id.toString() === idOrSlug
-    );
-    return fallbackMatch || FALLBACK_CUSTOM_PRODUCTS[0];
+    return undefined;
   }, [singleProduct, customProducts, idOrSlug]);
 
-  const customization = product.customization_options || FALLBACK_CUSTOM_PRODUCTS[0].customization_options!;
+  const product: Product = matchedProduct || FALLBACK_CUSTOM_PRODUCTS[0];
+
+  const customization = matchedProduct?.customization_options || product.customization_options || FALLBACK_CUSTOM_PRODUCTS[0].customization_options!;
 
   // Gallery state
   const images = useMemo(() => {
@@ -246,13 +245,11 @@ export default function CustomProductDetailPage() {
         totalPrice: calculatedSpecs.totalPrice,
         advancePrice: calculatedSpecs.suggestedAdvance,
       });
-    } catch {
-      // Fallback demo order number
-      setSubmittedOrder({
-        orderNumber: `CUST-2026-${Math.floor(100000 + Math.random() * 900000)}`,
-        totalPrice: calculatedSpecs.totalPrice,
-        advancePrice: calculatedSpecs.suggestedAdvance,
-      });
+    } catch (err: unknown) {
+      const msg =
+        (err as { data?: { message?: string } })?.data?.message ||
+        'Unable to submit custom order to workshop. Please verify your details or contact us directly on WhatsApp.';
+      alert(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -272,6 +269,44 @@ export default function CustomProductDetailPage() {
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
   };
+
+  if (isSingleLoading || isCustomLoading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center px-4 py-16 bg-[#faf8f5]">
+        <div className="text-center space-y-3">
+          <div className="w-10 h-10 border-3 border-[#b8933f] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs font-bold uppercase tracking-wider text-[#7a7166]">
+            Loading Architectural Specification...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!matchedProduct) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center px-4 py-16 bg-[#faf8f5]">
+        <div className="max-w-md w-full bg-white p-8 rounded-3xl border border-[#e2d9cc] text-center space-y-4 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-amber-50 text-[#b8933f] flex items-center justify-center mx-auto">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <h2 className="text-xl font-serif font-bold text-[#1a1815]">Product Not Found</h2>
+          <p className="text-xs text-[#7a7166] leading-relaxed">
+            This made-to-measure architectural product has been removed from the catalog or does not exist.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/custom-products"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1815] text-[#d4b06a] hover:bg-[#b8933f] hover:text-[#1a1815] text-xs font-bold uppercase tracking-wider transition-all"
+            >
+              <span>Browse All Custom Products</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pb-24 bg-[#faf8f5] text-[#1a1815]">

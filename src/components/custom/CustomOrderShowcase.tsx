@@ -37,11 +37,11 @@ const WHATSAPP_NUMBER = '966501234567';
 const PHONE_NUMBER = '+966501234567';
 
 export function CustomOrderShowcase({ onStartOrder }: CustomOrderShowcaseProps) {
-  const { data: apiResponse } = useGetVillaDesignsQuery();
+  const { data: apiResponse, isLoading } = useGetVillaDesignsQuery();
 
   const samples: CustomSample[] = React.useMemo(() => {
-    if (apiResponse?.data && apiResponse.data.length > 0) return apiResponse.data;
-    return SAUDI_CUSTOM_SAMPLES;
+    if (apiResponse?.data !== undefined) return apiResponse.data;
+    return [];
   }, [apiResponse]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -50,25 +50,41 @@ export function CustomOrderShowcase({ onStartOrder }: CustomOrderShowcaseProps) 
 
   const goTo = useCallback(
     (idx: number) => {
-      if (isTransitioning) return;
+      if (isTransitioning || samples.length === 0) return;
       setIsTransitioning(true);
       setTimeout(() => {
         setActiveIdx(idx);
         setIsTransitioning(false);
       }, 180);
     },
-    [isTransitioning],
+    [isTransitioning, samples.length],
   );
 
-  const prev = useCallback(() => goTo((activeIdx - 1 + samples.length) % samples.length), [activeIdx, goTo, samples.length]);
-  const next = useCallback(() => goTo((activeIdx + 1) % samples.length), [activeIdx, goTo, samples.length]);
+  const prev = useCallback(() => {
+    if (samples.length === 0) return;
+    goTo((activeIdx - 1 + samples.length) % samples.length);
+  }, [activeIdx, goTo, samples.length]);
+
+  const next = useCallback(() => {
+    if (samples.length === 0) return;
+    goTo((activeIdx + 1) % samples.length);
+  }, [activeIdx, goTo, samples.length]);
 
   useEffect(() => {
+    if (samples.length <= 1) return;
     const id = setInterval(next, 5000);
     return () => clearInterval(id);
-  }, [next]);
+  }, [next, samples.length]);
 
-  const active = samples[activeIdx];
+  const active = samples[activeIdx] || samples[0];
+
+  if (!isLoading && (!active || samples.length === 0)) {
+    return null;
+  }
+
+  if (!active) {
+    return null;
+  }
 
   function handleWhatsApp(sample: CustomSample) {
     const price = sample.priceSAR ?? (sample as unknown as { price_sar: number }).price_sar ?? 0;

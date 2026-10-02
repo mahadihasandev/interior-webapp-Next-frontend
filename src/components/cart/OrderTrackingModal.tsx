@@ -94,8 +94,8 @@ export function OrderTrackingModal({
     try {
       await fakePay(activeOrderNumber).unwrap();
       refetch();
-    } catch {
-      // Mock fallback
+    } catch (err: unknown) {
+      alert((err as { data?: { message?: string } })?.data?.message || 'Payment simulation failed. Order may not exist.');
     }
   };
 

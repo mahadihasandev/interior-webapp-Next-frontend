@@ -534,11 +534,11 @@ export const FALLBACK_CUSTOM_PRODUCTS: Product[] = [
 
 export function HeroCustomProductSection() {
   const router = useRouter();
-  const { data: apiProducts } = useGetCustomFitProductsQuery(8);
+  const { data: apiProducts, isLoading } = useGetCustomFitProductsQuery(8);
 
   const products: Product[] = React.useMemo(() => {
-    if (apiProducts && apiProducts.length > 0) return apiProducts;
-    return FALLBACK_CUSTOM_PRODUCTS;
+    if (apiProducts !== undefined) return apiProducts;
+    return [];
   }, [apiProducts]);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -579,6 +579,14 @@ export function HeroCustomProductSection() {
   const navigateToCustomPage = (product: Product) => {
     router.push(`/custom-order/${product.slug || product.id}`);
   };
+
+  if (!isLoading && (!activeProduct || products.length === 0)) {
+    return null;
+  }
+
+  if (!activeProduct) {
+    return null;
+  }
 
   return (
     <div className="w-full">
@@ -792,11 +800,11 @@ export function HeroCustomProductSection() {
 export function HeroCustomProductCardsGrid() {
   const router = useRouter();
   const sliderRef = useRef<HTMLDivElement>(null);
-  const { data: apiProducts } = useGetCustomFitProductsQuery(20);
+  const { data: apiProducts, isLoading } = useGetCustomFitProductsQuery(20);
 
   const products: Product[] = React.useMemo(() => {
-    if (apiProducts && apiProducts.length > 0) return apiProducts;
-    return FALLBACK_CUSTOM_PRODUCTS;
+    if (apiProducts !== undefined) return apiProducts;
+    return [];
   }, [apiProducts]);
 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -881,43 +889,58 @@ export function HeroCustomProductCardsGrid() {
             </Link>
 
             {/* Slider Navigation Arrows */}
-            <div className="flex items-center gap-1.5 bg-[#f3ede4] p-1 rounded-full border border-[#e2d9cc] shrink-0">
-              <button
-                type="button"
-                onClick={() => scrollSlider('prev')}
-                disabled={!canScrollLeft}
-                aria-label="Previous custom products"
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
-                  canScrollLeft
-                    ? 'bg-white text-[#1a1815] shadow-xs hover:bg-[#1a1815] hover:text-white'
-                    : 'text-[#a89f91] opacity-40 cursor-not-allowed'
-                }`}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollSlider('next')}
-                disabled={!canScrollRight}
-                aria-label="Next custom products"
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
-                  canScrollRight
-                    ? 'bg-white text-[#1a1815] shadow-xs hover:bg-[#1a1815] hover:text-white'
-                    : 'text-[#a89f91] opacity-40 cursor-not-allowed'
-                }`}
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+            {products.length > 0 && (
+              <div className="flex items-center gap-1.5 bg-[#f3ede4] p-1 rounded-full border border-[#e2d9cc] shrink-0">
+                <button
+                  type="button"
+                  onClick={() => scrollSlider('prev')}
+                  disabled={!canScrollLeft}
+                  aria-label="Previous custom products"
+                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                    canScrollLeft
+                      ? 'bg-white text-[#1a1815] shadow-xs hover:bg-[#1a1815] hover:text-white'
+                      : 'text-[#a89f91] opacity-40 cursor-not-allowed'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollSlider('next')}
+                  disabled={!canScrollRight}
+                  aria-label="Next custom products"
+                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                    canScrollRight
+                      ? 'bg-white text-[#1a1815] shadow-xs hover:bg-[#1a1815] hover:text-white'
+                      : 'text-[#a89f91] opacity-40 cursor-not-allowed'
+                  }`}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Responsive Horizontal Slider Container */}
-        <div className="relative">
-          <div
-            ref={sliderRef}
-            className="flex gap-5 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          >
+        {products.length === 0 ? (
+          <div className="py-12 px-6 text-center rounded-2xl bg-[#faf8f5] border border-dashed border-[#e2d9cc] space-y-3">
+            <div className="w-12 h-12 rounded-full bg-[#b8933f]/10 text-[#b8933f] flex items-center justify-center mx-auto">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <h3 className="text-base font-serif font-bold text-[#1a1815]">
+              No Custom Architectural Products Published
+            </h3>
+            <p className="text-xs text-[#7a7166] max-w-md mx-auto leading-relaxed">
+              All custom architectural products deleted from the catalog have been removed from the storefront. Add or restore products in the seller dashboard to display them here.
+            </p>
+          </div>
+        ) : (
+          <div className="relative">
+            <div
+              ref={sliderRef}
+              className="flex gap-5 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-1 -mx-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            >
             {products.map((product) => {
               const priceRange = getPriceRange(product);
               const targetUrl = `/custom-order/${product.slug || product.id}`;
@@ -1050,31 +1073,34 @@ export function HeroCustomProductCardsGrid() {
                 </div>
               </div>
             </div>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Slider Progress Bar & Quick Footer Link */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-[#7a7166]">
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <div className="h-1.5 w-36 bg-[#e2d9cc] rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#b8933f] rounded-full transition-all duration-300"
-                style={{ width: `${Math.max(15, scrollProgress)}%` }}
-              />
+        {products.length > 0 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-[#7a7166]">
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="h-1.5 w-36 bg-[#e2d9cc] rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#b8933f] rounded-full transition-all duration-300"
+                  style={{ width: `${Math.max(15, scrollProgress)}%` }}
+                />
+              </div>
+              <span className="font-mono text-[11px] text-[#7a7166]">
+                {products.length} Custom Models Available
+              </span>
             </div>
-            <span className="font-mono text-[11px] text-[#7a7166]">
-              {products.length} Custom Models Available
-            </span>
-          </div>
 
-          <Link
-            href="/custom-products"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1a1815] hover:text-[#b8933f] transition-colors"
-          >
-            <span>Browse All Made-to-Measure Architectural Works</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+            <Link
+              href="/custom-products"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1a1815] hover:text-[#b8933f] transition-colors"
+            >
+              <span>Browse All Made-to-Measure Architectural Works</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
