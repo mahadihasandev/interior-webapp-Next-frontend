@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import {
   Phone,
   MessageCircle,
@@ -90,11 +91,14 @@ export function CustomOrderShowcase({ onStartOrder }: CustomOrderShowcaseProps) 
 
         {/* Hero image */}
         <div className="relative aspect-[21/9] min-h-[340px] max-h-[560px] overflow-hidden">
-          <img
+          <Image
             key={active.id}
             src={resolveUrl(active.photoUrl)}
             alt={active.titleEn}
-            className={`w-full h-full object-cover object-center transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
+            fill
+            priority
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            className={`object-cover object-center transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
           />
 
           {/* Gradient overlay */}
@@ -246,10 +250,12 @@ export function CustomOrderShowcase({ onStartOrder }: CustomOrderShowcaseProps) 
                 }`}
               >
                 <div className="relative aspect-[4/3] bg-[#2a2520]">
-                  <img
+                  <Image
                     src={resolveUrl(s.photoUrl)}
                     alt={s.titleEn}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="144px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute bottom-1.5 left-1.5 right-1.5">
@@ -325,10 +331,12 @@ export function CustomOrderShowcase({ onStartOrder }: CustomOrderShowcaseProps) 
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-64 sm:h-80 overflow-hidden rounded-t-3xl bg-[#1a1815]">
-              <img
+              <Image
                 src={resolveUrl(previewSample.photoUrl)}
                 alt={previewSample.titleEn}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <button
@@ -377,11 +385,13 @@ export function CustomOrderShowcase({ onStartOrder }: CustomOrderShowcaseProps) 
               </div>
 
               {previewSample.detailPhotoUrl && previewSample.detailPhotoUrl !== previewSample.photoUrl && (
-                <div className="rounded-xl overflow-hidden h-44 bg-[#f3ede4]">
-                  <img
+                <div className="relative rounded-xl overflow-hidden h-44 bg-[#f3ede4]">
+                  <Image
                     src={resolveUrl(previewSample.detailPhotoUrl)}
                     alt="Detail view"
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    className="object-cover"
                   />
                 </div>
               )}

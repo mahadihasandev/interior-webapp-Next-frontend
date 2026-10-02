@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import {
   CheckCircle2,
   ArrowRight,
@@ -306,10 +307,12 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
             >
               {/* Image */}
               <div className="relative aspect-[16/10] overflow-hidden bg-[#f3ede4]">
-                <img
+                <Image
                   src={resolveImageUrl(sample.photoUrl)}
                   alt={sample.titleEn}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
                 <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-semibold bg-white/90 text-[#1a1815] border border-[#e2d9cc]">
                   {sample.type === 'fitting' ? 'Architectural Fitting' : 'Bespoke Sofa'}
@@ -406,11 +409,11 @@ export function CustomSampleGallery({ onSelectSample, selectedSampleId }: Custom
 
             <div className="p-5 sm:p-6 space-y-5">
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl overflow-hidden bg-[#f3ede4] h-48">
-                  <img src={resolveImageUrl(previewSample.photoUrl)} alt="Installed view" className="w-full h-full object-cover" />
+                <div className="relative rounded-xl overflow-hidden bg-[#f3ede4] h-48">
+                  <Image src={resolveImageUrl(previewSample.photoUrl)} alt="Installed view" fill sizes="(max-width: 640px) 50vw, 300px" className="object-cover" />
                 </div>
-                <div className="rounded-xl overflow-hidden bg-[#f3ede4] h-48">
-                  <img src={resolveImageUrl(previewSample.detailPhotoUrl || previewSample.photoUrl)} alt="Detail" className="w-full h-full object-cover" />
+                <div className="relative rounded-xl overflow-hidden bg-[#f3ede4] h-48">
+                  <Image src={resolveImageUrl(previewSample.detailPhotoUrl || previewSample.photoUrl)} alt="Detail" fill sizes="(max-width: 640px) 50vw, 300px" className="object-cover" />
                 </div>
               </div>
 

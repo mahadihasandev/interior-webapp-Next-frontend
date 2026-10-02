@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, CheckCircle2, ShieldCheck, Copy, Check } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -161,13 +162,15 @@ export function CartDrawer() {
                       >
                         <div className="relative w-20 h-20 bg-stone-200 rounded-xl overflow-hidden shrink-0">
                           {product.image_url ? (
-                            <img
+                            <Image
                               src={resolveImageUrl(product.image_url)}
                               alt={product.name}
+                              fill
+                              sizes="80px"
                               onError={(e) => {
                                 (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
                               }}
-                              className="w-full h-full object-cover"
+                              className="object-cover"
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-stone-400 text-xs">

@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import {
   ArrowLeft,
@@ -322,10 +323,13 @@ export default function CustomProductDetailPage() {
             {/* 1. Main Large Image Viewer */}
             <div className="space-y-4">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-black/5 border border-[#e2d9cc] shadow-md group">
-                <img
+                <Image
                   src={resolveImageUrl(images[activeImageIdx] || product.image_url)}
                   alt={`${product.name} - View ${activeImageIdx + 1}`}
-                  className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                 />
 
                 {/* Floating Cert Badges */}
@@ -364,10 +368,12 @@ export default function CustomProductDetailPage() {
                             : 'border-[#e2d9cc] hover:border-[#b8933f]/60 opacity-80 hover:opacity-100'
                         }`}
                       >
-                        <img
+                        <Image
                           src={resolveImageUrl(imgUrl)}
                           alt={`Thumbnail ${idx + 1}`}
-                          className="w-full h-full object-cover"
+                          fill
+                          sizes="120px"
+                          className="object-cover"
                         />
                       </button>
                     ))}

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   ArrowRight,
@@ -631,13 +632,16 @@ export function HeroCustomProductSection() {
           >
             {/* Image Frame with Aspect Ratio */}
             <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden bg-black/40 border border-white/10 mb-4">
-              <img
+              <Image
                 src={resolveImageUrl(activeProduct.image_url)}
                 alt={activeProduct.name}
+                fill
+                priority
+                sizes="(max-width: 640px) 100vw, 600px"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
                 }}
-                className={`w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out ${
+                className={`object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out ${
                   isAnimating ? 'opacity-40 scale-95' : 'opacity-100 scale-100'
                 }`}
               />
@@ -927,13 +931,15 @@ export function HeroCustomProductCardsGrid() {
                 >
                   {/* Product Image Frame */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#e8ddd0]">
-                    <img
+                    <Image
                       src={resolveImageUrl(product.image_url)}
                       alt={product.name}
+                      fill
+                      sizes="(max-width: 640px) 280px, 320px"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
                       }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 

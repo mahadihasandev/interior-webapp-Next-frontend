@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   X,
   Package,
@@ -294,15 +295,17 @@ export function OrderTrackingModal({
                       return (
                         <div key={idx} className="p-4 flex items-center gap-4 hover:bg-stone-50/50 transition-colors">
                           {/* Image or CAD Icon */}
-                          <div className="w-16 h-16 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0 overflow-hidden">
+                          <div className="relative w-16 h-16 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0 overflow-hidden">
                             {item.product?.image_url ? (
-                              <img
+                              <Image
                                 src={resolveImageUrl(item.product.image_url)}
                                 alt={item.product_name}
+                                fill
+                                sizes="64px"
                                 onError={(e) => {
                                   (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
                                 }}
-                                className="w-full h-full object-cover"
+                                className="object-cover"
                               />
                             ) : isCustom ? (
                               <div className="w-full h-full bg-stone-900 flex flex-col items-center justify-center text-white">

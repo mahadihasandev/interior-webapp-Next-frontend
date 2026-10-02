@@ -297,10 +297,12 @@ export default function CustomProductsPage() {
                 >
                   {/* Product Image Frame */}
                   <Link href={targetUrl} className="relative aspect-[4/3] w-full overflow-hidden bg-[#e8ddd0] block">
-                    <img
+                    <Image
                       src={resolveImageUrl(product.image_url)}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-75 group-hover:opacity-60 transition-opacity" />
 

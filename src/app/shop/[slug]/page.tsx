@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ShoppingBag,
   Star,
@@ -122,17 +123,20 @@ export default function ProductDetailPage() {
           <div className="lg:col-span-7 space-y-4">
             {/* Primary High-Res View */}
             <div className="relative aspect-4/3 sm:aspect-16/11 w-full bg-stone-100 rounded-2xl overflow-hidden border border-stone-200">
-              <img
+              <Image
                 src={currentImage}
                 alt={product.name}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 60vw"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
                 }}
-                className="w-full h-full object-cover object-center transition-all duration-300"
+                className="object-cover object-center transition-all duration-300"
               />
 
               {product.is_featured && (
-                <div className="absolute top-4 left-4 px-3 py-1 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm">
+                <div className="absolute top-4 left-4 px-3 py-1 bg-stone-900 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm z-10">
                   Curated Architectural Pick
                 </div>
               )}
@@ -151,13 +155,15 @@ export default function ProductDetailPage() {
                         : 'border-stone-200 opacity-70 hover:opacity-100'
                     }`}
                   >
-                    <img
+                    <Image
                       src={imgUrl}
                       alt=""
+                      fill
+                      sizes="80px"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
                       }}
-                      className="w-full h-full object-cover"
+                      className="object-cover"
                     />
                   </button>
                 ))}

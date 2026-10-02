@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Sparkles,
   CheckCircle2,
@@ -270,10 +271,12 @@ export default function ConsultationPage() {
           </div>
 
           <div className="relative rounded-3xl overflow-hidden border border-stone-200 aspect-16/10 shadow-sm">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80"
               alt="Interior design studio material samples"
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
             />
           </div>
         </div>

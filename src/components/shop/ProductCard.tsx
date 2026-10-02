@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingBag, Star, Sparkles, Check } from 'lucide-react';
 import { Product } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -17,6 +18,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const dispatch = useAppDispatch();
   const currency = useAppSelector((state) => state.ui.currency);
   const [isAdded, setIsAdded] = useState(false);
+  const [imgSrc, setImgSrc] = useState(() => resolveImageUrl(product.image_url));
   const productHref = `/shop/${product.slug || product.id}`;
 
   const priceSAR = Math.round(product.price * 3.75);
@@ -43,15 +45,17 @@ export function ProductCard({ product }: ProductCardProps) {
     <div className="group relative flex flex-col bg-white rounded-2xl border border-stone-200 overflow-hidden hover:border-[#c5a059]/60 hover:shadow-xl hover:shadow-stone-300/40 transition-all duration-300">
       {/* Product Image Container */}
       <div className="relative aspect-4/3 w-full overflow-hidden bg-stone-100">
-        <Link href={productHref} className="block w-full h-full">
+        <Link href={productHref} className="relative block w-full h-full">
           {product.image_url ? (
-            <img
-              src={resolveImageUrl(product.image_url)}
+            <Image
+              src={imgSrc}
               alt={product.name}
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = FALLBACK_PRODUCT_IMAGE;
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              onError={() => {
+                setImgSrc(FALLBACK_PRODUCT_IMAGE);
               }}
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+              className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-stone-500 text-xs">

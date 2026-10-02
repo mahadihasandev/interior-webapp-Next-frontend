@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Sparkles,
   Layers,
@@ -197,10 +198,12 @@ export function SaudiMaterialShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-2">
           {/* Visual macro image card (5 Cols) */}
           <div className="lg:col-span-5 relative aspect-4/3 sm:aspect-16/10 lg:aspect-4/3 rounded-3xl overflow-hidden border border-stone-700 shadow-2xl group">
-            <img
+            <Image
               src={selectedMaterial.imageUrl}
               alt={selectedMaterial.nameEn}
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+              fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
+              className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent" />
 

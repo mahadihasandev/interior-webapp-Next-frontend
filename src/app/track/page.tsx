@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import { useGetOrderQuery, useFakePayOrderMutation } from '@/store/services/consultationApi';
 import { OrderItemDetail } from '@/types';
+import Image from 'next/image';
+import { resolveImageUrl } from '@/utils/imageUrl';
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
@@ -212,9 +214,15 @@ function TrackOrderContent() {
                       order.items.map((item: OrderItemDetail, idx: number) => (
                         <div key={idx} className="p-4 flex items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-14 h-14 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0 overflow-hidden">
+                            <div className="relative w-14 h-14 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center shrink-0 overflow-hidden">
                               {item.product?.image_url ? (
-                                <img src={item.product.image_url} alt={item.product_name} className="w-full h-full object-cover" />
+                                <Image
+                                  src={resolveImageUrl(item.product.image_url)}
+                                  alt={item.product_name}
+                                  fill
+                                  sizes="56px"
+                                  className="object-cover"
+                                />
                               ) : (
                                 <Layers className="w-6 h-6 text-stone-700" />
                               )}
